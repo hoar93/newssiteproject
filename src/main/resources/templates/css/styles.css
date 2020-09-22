@@ -1,0 +1,8 @@
+.news-details {
+    position: absolute;
+    background-color: aqua;
+}
+
+.news-text {
+    position: absolute; background: brown;
+}

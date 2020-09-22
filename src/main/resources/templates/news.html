@@ -1,0 +1,19 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Egy Újak!</title>
+</head>
+<body>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr data-th-text="${oneNews.getTitle()}"></tr>
+        <tr data-th-text="${oneNews.getAuthor()}"></tr>
+        <tr data-th-text="${oneNews.getContent()}"></tr>
+        </thead>
+    </table>
+</div>
+
+</body>
+</html>

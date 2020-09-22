@@ -1,0 +1,41 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head data-th-replace="menu :: newhead">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body>
+<!--<nav data-th-replace="menu :: newmenu"></nav>-->
+<h1>Üdv</h1>
+
+    <table class="table" border="1">
+        <thead>
+        <!--<tbody id="nwstbody">-->
+        <tr data-th-each="oneNews: ${allNews}" >
+            <!--<td>
+                <tr data-th-each="hashtag: ${oneNews.hashtags}">
+            <td>
+                <div data-th-text="${hashtag}"></div>
+            </td>
+                </tr>
+
+            </td>-->
+            <td>
+                <div data-th-text="${oneNews.getCreationTime()}"></div>
+            </td>
+            <td>
+                <div data-th-text="${oneNews.getContent()}"></div>
+            </td>
+            <td>
+                <div data-th-text="${oneNews.getAuthor()}"></div>
+                <div data-th-text="${oneNews.getTitle()}"></div>
+            </td>
+
+            <!--
+
+        </tr>
+        </tbody>-->
+        </thead>
+    </table>
+</div>
+</body>
+</html>

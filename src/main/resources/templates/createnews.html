@@ -1,0 +1,25 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div class="container">
+    <h1>Új cikk</h1>
+    <form data-th-action="@{/createNews}" method="POST" data-th-object="${news}">
+        <div class="form-group">
+            <label for="title">Cikk címe:</label>
+            <textarea data-th-field="*{title}" id="title" class="form-control"></textarea>
+            <label for="text">Cikk szövege:</label>
+            <textarea data-th-field="*{text}" id="text" class="form-control"></textarea>
+            <label for="hashtags">Hashtagek (vesszővel elválasztva):</label>
+            <textarea data-th-field="*{hashtags}" id="hashtags" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Beküld</button>
+        <div class="mt-4">
+            <!--  <a data-th-href="@{/createconversation}">Beszélgetés létrehozása </a> -->
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
