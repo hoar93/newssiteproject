@@ -1,4 +1,4 @@
-package newsportal.modell;
+package newsportal.model;
 
 
 

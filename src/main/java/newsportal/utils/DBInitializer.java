@@ -1,7 +1,7 @@
 package newsportal.utils;
 
-import newsportal.modell.Authority;
-import newsportal.modell.User;
+import newsportal.model.Authority;
+import newsportal.model.User;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Collections;
-import java.util.Set;
 
 @Component
 public class DBInitializer {

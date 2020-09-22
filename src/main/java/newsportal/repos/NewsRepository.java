@@ -1,7 +1,6 @@
 package newsportal.repos;
 
-import newsportal.modell.News;
-import org.springframework.data.jpa.repository.JpaRepository;
+import newsportal.model.News;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;

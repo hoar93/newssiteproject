@@ -1,8 +1,8 @@
 package newsportal.services;
 
 import newsportal.dto.NewsDto;
-import newsportal.modell.Hashtag;
-import newsportal.modell.News;
+import newsportal.model.Hashtag;
+import newsportal.model.News;
 import newsportal.repos.HashtagRepository;
 import newsportal.repos.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,13 +75,13 @@ public class NewsServices {
         int i = 0;
         boolean found = false;
         //TODO tesztelni
-        while (i < hashtagNameList.size() && !found) {
+        while (i < hashtagNameList.size() /*&& !found˛*/) {
             hashtag = hashtagRepository.findHashtagByName(hashtagNameList.get(i));
             if(hashtag != null) {
                 //létezik már a hashtag, news-t hozzáad
                 hashtagRepository.findHashtagByName(hashtag.getName()).addNews(news);
                 newList.add(hashtag);
-                found = true;
+                //found = true;
             } else {
                 //nem létezik még, létrehoz új hashtaget, news-t hozzáad
                 Hashtag newHashtag = new Hashtag();
@@ -90,6 +90,7 @@ public class NewsServices {
                 newList.add(newHashtag);
                 em.persist(newHashtag);
             }
+            i++;
         }
         return newList;
     }

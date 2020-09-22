@@ -1,6 +1,6 @@
 package newsportal.controllers;
 
-import newsportal.modell.News;
+import newsportal.model.News;
 import newsportal.services.NewsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

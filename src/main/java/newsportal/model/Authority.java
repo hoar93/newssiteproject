@@ -1,4 +1,4 @@
-package newsportal.modell;
+package newsportal.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
