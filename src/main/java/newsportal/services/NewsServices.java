@@ -1,7 +1,6 @@
 package newsportal.services;
 
 import newsportal.dto.NewsDto;
-//import newsportal.modell.Hashtags;
 import newsportal.modell.Hashtag;
 import newsportal.modell.News;
 import newsportal.repos.HashtagRepository;
@@ -61,21 +60,12 @@ public class NewsServices {
         //hashtagek intézése
         List<String> hashtagNames = split(newNewsDto.getHashtags());
 
-        //TODO  nem újakhoz news-t rendel
-        //      újakat létrehoz, newst rendel, perzisztál
-        //      news-hoz hashtaglistet settel
+        //      nem újakhoz news-t rendel - pipa
+        //      újakat létrehoz, newst rendel, perzisztál - pipa
+        //      news-hoz hashtaglistet settel - pipa
 
         List<Hashtag> hashtags = setNewsToDublicate(hashtagNames, news);
-
-
-        for (int i = 0; i < hashtags.size(); i++) {
-            hashtags.get(i).addNews(news);
-        }
-        //news.setHashtagList(hashtags);
-        //news.setHashtags(split(newNewsDto.getHashtags()));
-        /*for (int i = 0; i < hashtags.size(); i++) {
-            news.addHashtag(hashtags.get(i));
-        }*/
+        news.setHashtagList(hashtags);
         em.persist(news);
     }
 
@@ -84,8 +74,8 @@ public class NewsServices {
         Hashtag hashtag;
         int i = 0;
         boolean found = false;
-        while(i < hashtagNameList.size() && !found) {
-        //for (int i = 0; i < hashtagList.size(); i++) {
+        //TODO tesztelni
+        while (i < hashtagNameList.size() && !found) {
             hashtag = hashtagRepository.findHashtagByName(hashtagNameList.get(i));
             if(hashtag != null) {
                 //létezik már a hashtag, news-t hozzáad
@@ -104,7 +94,7 @@ public class NewsServices {
         return newList;
     }
 
-    //TODO itt persistálja az ÖSSZES (MÉG) hashtaget
+
     private List<String> split (String original) {
         String[] hashes = (original.split(", "));
         List<String> hashtags = Arrays.asList(hashes);
