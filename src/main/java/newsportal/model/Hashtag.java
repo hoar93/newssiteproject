@@ -12,8 +12,17 @@ public class Hashtag {
     private String name;
     @ManyToMany //(mappedBy = "hashtags")
     private List<News> news = new ArrayList<>();
+    @ManyToMany
+    private List<User> userList = new ArrayList<>();
 
     public Hashtag() {
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+    public void addUser(User user) {
+        userList.add(user);
     }
 
     public List<News> getNews() {

@@ -39,8 +39,8 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Authority> authorities = new HashSet<>();
 
-    @OneToMany
-    private List<Hashtag> followedHashtags = new ArrayList<>();
+    @ManyToMany
+    private List<Hashtag> hashtags = new ArrayList<>();
 
     public User() {
     }
@@ -58,14 +58,14 @@ public class User implements UserDetails {
     }
 
     public void addHashtag(Hashtag hashtag) {
-        followedHashtags.add(hashtag);
+        hashtags.add(hashtag);
     }
-    public List<Hashtag> getFollowedHashtags() {
-        return followedHashtags;
+    public List<Hashtag> getHashtags() {
+        return hashtags;
     }
 
-    public void setFollowedHashtags(List<Hashtag> followedHashtags) {
-        this.followedHashtags = followedHashtags;
+    public void setHashtags(List<Hashtag> hashtags) {
+        this.hashtags = hashtags;
     }
 
     public long getId() {

@@ -1,6 +1,7 @@
 package newsportal.services;
 
 import newsportal.dto.HashtagDto;
+import newsportal.model.Hashtag;
 import newsportal.model.User;
 import newsportal.repos.HashtagRepository;
 import newsportal.repos.UserRepository;
@@ -45,7 +46,8 @@ public class UserService implements UserDetailsService {
     @Transactional
     public void setFollowedHashtag(String hashtag) {
         User loggedInUser = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-
+        Hashtag hashtag1 = hashtagRepository.findHashtagByName(hashtag);
+        hashtag1.addUser(loggedInUser);
         loggedInUser.addHashtag(hashtagRepository.findHashtagByName(hashtag));
     }
 
@@ -53,9 +55,9 @@ public class UserService implements UserDetailsService {
     public List<HashtagDto> followedHashtags() {
         User loggedInUser = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         List<HashtagDto> followedHashtags = new ArrayList<>();
-        for (int i = 0; i < loggedInUser.getFollowedHashtags().size(); i++) {
+        for (int i = 0; i < loggedInUser.getHashtags().size(); i++) {
             HashtagDto hashtagDto = new HashtagDto();
-            hashtagDto.setName(loggedInUser.getFollowedHashtags().get(i).getName());
+            hashtagDto.setName(loggedInUser.getHashtags().get(i).getName());
             followedHashtags.add(hashtagDto);
         }
 

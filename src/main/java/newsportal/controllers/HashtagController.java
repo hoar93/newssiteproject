@@ -31,7 +31,7 @@ public class HashtagController {
 
         HashtagDto newDto = new HashtagDto();
         List<HashtagDto> allFollowed = userService.followedHashtags();
-        
+
         model.addAttribute("allHashtags",hashtagList);
         model.addAttribute("allFollowed", allFollowed);
         model.addAttribute("hashtagdto", newDto);
