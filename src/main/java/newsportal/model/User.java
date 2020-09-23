@@ -10,9 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class User implements UserDetails {
@@ -41,6 +39,9 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Authority> authorities = new HashSet<>();
 
+    @OneToMany
+    private List<Hashtag> followedHashtags = new ArrayList<>();
+
     public User() {
     }
 
@@ -54,6 +55,17 @@ public class User implements UserDetails {
         this.password = password;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public void addHashtag(Hashtag hashtag) {
+        followedHashtags.add(hashtag);
+    }
+    public List<Hashtag> getFollowedHashtags() {
+        return followedHashtags;
+    }
+
+    public void setFollowedHashtags(List<Hashtag> followedHashtags) {
+        this.followedHashtags = followedHashtags;
     }
 
     public long getId() {

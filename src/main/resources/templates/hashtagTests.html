@@ -1,0 +1,30 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div class="container">
+    <h1>hashtag following backend test</h1>
+    <label for="hashtaglist">Followolhat hashtagtek:</label>
+    <table class="table" id="hashtaglist">
+        <tr data-th-each="oneTag: ${allHashtags}">
+            <td data-th-text="${oneTag.getName()}"></td>
+        </tr>
+
+    </table>
+
+
+    <form data-th-action="@{/addHashtag}" method="POST" data-th-object="${hashtag}">
+        <div class="form-group">
+            <label for="text">followolni kívánt hashtag:</label>
+            <textarea data-th-field="${hashtag.name}" id="text" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Hozzáad</button>
+        <div class="mt-4">
+        </div>
+    </form>
+
+</div>
+
+</body>
+</html>
