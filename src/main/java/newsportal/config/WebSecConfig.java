@@ -16,6 +16,7 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
 
 
 
+    //@SuppressWarnings("deprecation")
     @SuppressWarnings("deprecation")
     @Bean
     public PasswordEncoder passwordEncoder() {

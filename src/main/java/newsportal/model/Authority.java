@@ -14,7 +14,7 @@ public class Authority implements GrantedAuthority {
 
     private String name;
 
-    @ManyToMany(mappedBy = "authorities")
+    @ManyToMany(mappedBy = "authorities", fetch = FetchType.EAGER)
     private Set<User> users = new HashSet<>();
 
     public Authority() {

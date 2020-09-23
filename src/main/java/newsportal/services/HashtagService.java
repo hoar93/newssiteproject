@@ -10,5 +10,5 @@ public class HashtagService {
 
     @PersistenceContext
     EntityManager em;
-    
+
 }
