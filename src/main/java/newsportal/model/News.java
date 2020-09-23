@@ -22,31 +22,42 @@ public class News {
     @ManyToMany (mappedBy = "news")
     private List<Hashtag> hashtagList = new ArrayList<>();
 
+    @OneToMany
+    private List<Comment> comments = new ArrayList<>();
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     public List<Hashtag> getHashtagList() {
         return hashtagList;
+    }
+
+    @DateTimeFormat(pattern = "yyyy/MMMM/dd HH:mm")
+    private LocalDateTime creationTime;
+
+    public News() {
+
     }
 
     public void setHashtagList(List<Hashtag> hashtagList) {
         this.hashtagList = hashtagList;
     }
 
-    @DateTimeFormat(pattern = "yyyy/MMMM/dd HH:mm")
-    private LocalDateTime creationTime;
-
     /*
-    public void addHashtag(Hashtags hashtag){
-        hashtags.add(hashtag);
-        hashtag.getNews().add(this);
-    }
-
     public void removeHashtag(Hashtags hashtag) {
         hashtags.remove(hashtag);
         hashtag.getNews().remove(hashtag);
     }
     */
-
-    public News() {
-    }
 
     public LocalDateTime getCreationTime() {
         return creationTime;

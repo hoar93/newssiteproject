@@ -43,6 +43,8 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    //TODO átnevezni változókat
+    //  duplikációt nem engedni!
     @Transactional
     public void setFollowedHashtag(String hashtag) {
         User loggedInUser = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());

@@ -42,6 +42,10 @@ public class User implements UserDetails {
     @ManyToMany
     private List<Hashtag> hashtags = new ArrayList<>();
 
+    @OneToMany
+    private List<Comment> comments = new ArrayList<>();
+
+
     public User() {
     }
 
@@ -57,49 +61,51 @@ public class User implements UserDetails {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     public void addHashtag(Hashtag hashtag) {
         hashtags.add(hashtag);
     }
     public List<Hashtag> getHashtags() {
         return hashtags;
     }
-
     public void setHashtags(List<Hashtag> hashtags) {
         this.hashtags = hashtags;
     }
-
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
-
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
     }
