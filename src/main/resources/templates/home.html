@@ -9,16 +9,8 @@
 
     <table class="table" border="1">
         <thead>
-        <!--<tbody id="nwstbody">-->
         <tr data-th-each="oneNews: ${allNews}" >
-            <!--<td>
-                <tr data-th-each="hashtag: ${oneNews.hashtags}">
-            <td>
-                <div data-th-text="${hashtag}"></div>
-            </td>
-                </tr>
 
-            </td>-->
             <td>
                 <div data-th-text="${oneNews.getCreationTime()}"></div>
             </td>
@@ -29,11 +21,6 @@
                 <div data-th-text="${oneNews.getAuthor()}"></div>
                 <div data-th-text="${oneNews.getTitle()}"></div>
             </td>
-
-            <!--
-
-        </tr>
-        </tbody>-->
         </thead>
     </table>
 </div>

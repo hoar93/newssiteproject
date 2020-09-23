@@ -30,7 +30,7 @@ public class HashtagService {
         return hashtagRepository.findAll();
     }
 
-    public List<HashtagDto> allHashtagsName() {
+    public List<HashtagDto> allHashtagsName() { //TODO minusz a followed-ok
         List<Hashtag> hashtags = findAllHashtags();
         List<HashtagDto> hashtagDtoList = new ArrayList<>();
         for (int i = 0; i < hashtags.size(); i++) {

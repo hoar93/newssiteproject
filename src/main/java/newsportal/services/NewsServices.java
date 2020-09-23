@@ -74,7 +74,7 @@ public class NewsServices {
         Hashtag hashtag;
         int i = 0;
         boolean found = false;
-        //TODO tesztelni
+        //TODO lehetne for
         while (i < hashtagNameList.size() /*&& !found˛*/) {
             hashtag = hashtagRepository.findHashtagByName(hashtagNameList.get(i));
             if(hashtag != null) {

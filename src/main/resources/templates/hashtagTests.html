@@ -1,28 +1,38 @@
-
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <body>
 
 <div class="container">
     <h1>hashtag following backend test</h1>
-    <label for="hashtaglist">Followolhat hashtagtek:</label>
-    <table class="table" id="hashtaglist">
+    <label for="hashtaglist">Followolható hashtagek:</label>
+    <div data-th-if="${allHashtags.empty}">
+        Összes followolva van a bejelentkezett felhasználó által.
+    </div>
+    <table data-th-if="${!allHashtags.empty}" class="table" id="hashtaglist">
         <tr data-th-each="oneTag: ${allHashtags}">
             <td data-th-text="${oneTag.getName()}"></td>
         </tr>
-
     </table>
 
-
-    <form data-th-action="@{/addHashtag}" method="POST" data-th-object="${hashtag}">
+    <form data-th-action="@{/addHashtag}" method="POST" data-th-object="${hashtagdto}">
         <div class="form-group">
             <label for="text">followolni kívánt hashtag:</label>
-            <textarea data-th-field="${hashtag.name}" id="text" class="form-control"></textarea>
+            <textarea data-th-field="${hashtagdto.name}" id="text" class="form-control"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Hozzáad</button>
         <div class="mt-4">
         </div>
     </form>
+
+    <label for="followedHashtags">Followed hashtagek:</label>
+    <div data-th-if="${allFollowed.empty}">
+        Nincsen followed hashtag!
+    </div>
+    <table data-th-if="${!allFollowed.empty}" class="table" id="followedHashtags">
+        <tr data-th-each="oneFollowed: ${allFollowed}">
+            <td data-th-text="${oneFollowed.name}"></td>
+        </tr>
+    </table>
 
 </div>
 
