@@ -21,7 +21,9 @@ public class NewsController {
         this.newsServices = newsServices;
     }
 
+    /*
     @GetMapping(path = "/news")
+     */
     public String showNews() {
         return null;
     }

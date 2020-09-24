@@ -25,7 +25,7 @@ public class HashtagController {
         this.userService = userService;
     }
 
-    @GetMapping("/hashtagFollowTest")
+    @GetMapping("/followedHashtags")
     public String showHashtags(Model model) {
         List<HashtagDto> hashtagList = hashtagService.allHashtagsName(); //TODO minusz a followed-ok
 
@@ -46,6 +46,6 @@ public class HashtagController {
     @PostMapping("/removeHashtag")
     public String removeHashtag(@ModelAttribute ("removeTag") HashtagDto hashtag) {
         userService.removeFollowedHashtag(hashtag.getName());
-        return "redirect:/hashtagFollowTest/";
+        return "redirect:/followedHashtags/";
     }
 }

@@ -1,16 +1,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head data-th-replace="menu :: newhead">
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <!--<link rel="stylesheet" type="text/css" href="css/styles.css">-->
 </head>
 <body>
-<!--<nav data-th-replace="menu :: newmenu"></nav>-->
-<h1>Üdv</h1>
-
-    <table class="table" border="1">
+<nav data-th-replace="menu :: newmenu"></nav>
+<div class="container">
+    <h1>Üdv</h1>
+    <table class="table table-sm">
         <thead>
         <tr data-th-each="oneNews: ${allNews}" >
-
             <td>
                 <div data-th-text="${oneNews.getCreationTime()}"></div>
             </td>
@@ -23,6 +22,16 @@
             </td>
         </thead>
     </table>
+    <div>
+        Total items: [[${totalNews}]]
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination" data-th-each="actualFirst: ${pageNumbers}" >
+                <li class="page-item" ><a data-th-href="@{'/home/'+${actualFirst}+'/'}" data-th-text=${actualFirst}></a></li>
+            </ul>
+        </nav>
+
+    </div>
 </div>
 </body>
 </html>

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -27,7 +29,7 @@ public class HomeController {
     @GetMapping("/home/{pageNumber}")
     public String listByPage(Model model,
                              @PathVariable("pageNumber") int currentPage) {
-        Page<News> page =  newsServices.onePage(currentPage);
+        Page<News> page = newsServices.onePage(currentPage);
         long totalNews = page.getTotalElements();
         int totalPages = page.getTotalPages();
 
@@ -40,18 +42,24 @@ public class HomeController {
     }
 
 
-    @RequestMapping(value = {"/", "/home"}, method = GET)
+    @RequestMapping(value = {"/", "/home", "/news"}, method = GET)
     public String messengerHome(Model model) {
-        Page<News> page =  newsServices.allNews();
+        Page<News> page = newsServices.allNews();
         long totalNews = page.getTotalElements();
         int totalPages = page.getTotalPages();
 
         List<News> allNews = page.getContent();
-        //List<News> allNews = newsServices.allNews();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
         model.addAttribute("totalNews", totalNews);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("allNews", allNews);
         return "home";
-    }
 
+    }
 }

@@ -1,3 +1,4 @@
+
 <html>
 <head data-th-fragment="newhead">
     <meta charset="UTF-8"/>
@@ -15,13 +16,20 @@
             <a class="nav-link" href="/home">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/home">Dolgok</a>
+            <a class="nav-link" href="/followedHashtags">Followed hashtags</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/home">Kábószta főzelék</a>
+            <a class="nav-link" href="/createNews">Create new News</a>
         </li>
     </ul>
+    <div class="ml-auto">
+                <span data-sec-authorize="isAuthenticated()" class="text-light">
+                    <span >Üdv </span><span data-sec-authentication="name"></span><span >!</span>
+                </span>
 
+        <a  data-sec-authorize="isAuthenticated()" class="" href="/logout">Kijelentkezés</a>
+        <a  data-sec-authorize="! isAuthenticated()" class="" href="/login">Bejelentkezés</a>
+    </div>
 </nav>
 
 </body>
