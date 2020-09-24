@@ -10,14 +10,14 @@
     </div>
     <table data-th-if="${!allHashtags.empty}" class="table" id="hashtaglist">
         <tr data-th-each="oneTag: ${allHashtags}">
-            <td data-th-text="${oneTag.getName()}"></td>
+            <td data-th-text="${oneTag.getName()}"></td> <!-- megy simán .name-el?-->
         </tr>
     </table>
-
+    <!-- TODO if-elni a láthatóságot - tartalom alapján -->
     <form data-th-action="@{/addHashtag}" method="POST" data-th-object="${hashtagdto}">
         <div class="form-group">
-            <label for="text">followolni kívánt hashtag:</label>
-            <textarea data-th-field="${hashtagdto.name}" id="text" class="form-control"></textarea>
+            <label for="followText">followolni kívánt hashtag:</label>
+            <textarea data-th-field="${hashtagdto.name}" id="followText" class="form-control"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Hozzáad</button>
         <div class="mt-4">
@@ -33,6 +33,16 @@
             <td data-th-text="${oneFollowed.name}"></td>
         </tr>
     </table>
+    <form data-th-if="${!allFollowed.empty}" data-th-action="@{/removeHashtag}" method="POST" data-th-object="${hashtagdto}">
+        <div class="form-group">
+            <label for="removeText">törölni kívánt hashtag:</label>
+            <textarea data-th-field="${hashtagdto.name}" id="removeText" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Töröl</button>
+        <div class="mt-4">
+        </div>
+    </form>
+
 
 </div>
 

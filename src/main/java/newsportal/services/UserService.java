@@ -66,4 +66,8 @@ public class UserService implements UserDetailsService {
 
         return followedHashtags;
     }
+
+    public void removeFollowedHashtag(String hashtagMame) {
+        //TODO remove
+    }
 }

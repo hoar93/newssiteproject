@@ -43,4 +43,9 @@ public class HashtagController {
         userService.setFollowedHashtag(hashtag.getName());
         return "redirect:/hashtagFollowTest/";
     }
+    @PostMapping("/removeHashtag")
+    public String removeHashtag(@ModelAttribute ("removeTag") HashtagDto hashtag) {
+        userService.removeFollowedHashtag(hashtag.getName());
+        return "redirect:/hashtagFollowTest/";
+    }
 }
