@@ -62,12 +62,12 @@ public class UserService implements UserDetailsService {
             hashtagDto.setName(loggedInUser.getHashtags().get(i).getName());
             followedHashtags.add(hashtagDto);
         }
-
-
         return followedHashtags;
     }
 
+    @Transactional
     public void removeFollowedHashtag(String hashtagMame) {
-        //TODO remove
+        User loggedInUser = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        loggedInUser.removeHashtag(hashtagRepository.findHashtagByName(hashtagMame));
     }
 }

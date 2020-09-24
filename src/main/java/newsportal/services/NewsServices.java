@@ -35,13 +35,15 @@ public class NewsServices {
         this.hashtagRepository = hashtagRepository;
     }
 
-    @Transactional
+    public News oneNews(long id) {
+        return newsRepository.findById(id).get();
+    }
+
     public Page<News> onePage(int page) {
         Pageable pageable = PageRequest.of(page, 3);
         return newsRepository.findAll(pageable);
     }
 
-    @Transactional
     public Page<News> allNews() {
         Pageable pageable = PageRequest.of(0, 3);
 

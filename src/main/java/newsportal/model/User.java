@@ -79,6 +79,9 @@ public class User implements UserDetails {
     public List<Hashtag> getHashtags() {
         return hashtags;
     }
+    public void removeHashtag(Hashtag hashtag) {
+        hashtags.remove(hashtag);
+    }
     public void setHashtags(List<Hashtag> hashtags) {
         this.hashtags = hashtags;
     }

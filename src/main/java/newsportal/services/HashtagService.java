@@ -25,7 +25,7 @@ public class HashtagService {
         this.hashtagRepository = hashtagRepository;
     }
 
-    @Transactional
+    //@Transactional
     public List<Hashtag> findAllHashtags() {
         return hashtagRepository.findAll();
     }
