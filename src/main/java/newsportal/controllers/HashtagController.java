@@ -41,7 +41,7 @@ public class HashtagController {
     @PostMapping("/addHashtag")
     public String addHashtag(@ModelAttribute ("hashtag") HashtagDto hashtag) {
         userService.setFollowedHashtag(hashtag.getName());
-        return "redirect:/hashtagFollowTest/";
+        return "redirect:/followedHashtags/";
     }
     @PostMapping("/removeHashtag")
     public String removeHashtag(@ModelAttribute ("removeTag") HashtagDto hashtag) {

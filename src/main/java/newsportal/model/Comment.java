@@ -22,6 +22,9 @@ public class Comment {
     @DateTimeFormat(pattern = "yyyy/MMMM/dd HH:mm")
     private LocalDateTime creationTime;
 
+    public Comment() {
+    }
+
     public long getId() {
         return id;
     }
@@ -54,4 +57,7 @@ public class Comment {
         return creationTime;
     }
 
+    public void setCreationTime(LocalDateTime creationTime) {
+        this.creationTime = creationTime;
+    }
 }
