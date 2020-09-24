@@ -1,19 +1,46 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head data-th-replace="menu :: newhead">
     <meta charset="UTF-8">
-    <title>Egy Újak!</title>
 </head>
 <body>
 <nav data-th-replace="menu :: newmenu"></nav> <!--TODO + komment-->
 <div class="container">
-    <table class="table">
+    <table class="table table-sm">
         <thead>
-        <tr data-th-text="${oneNews.getTitle()}"></tr>
-        <tr data-th-text="${oneNews.getAuthor()}"></tr>
-        <tr data-th-text="${oneNews.getContent()}"></tr>
+        <tr>
+            <td  data-th-text="${oneNews.getTitle()}"></td>
+            <td  data-th-text="${oneNews.getAuthor()}"></td>
+        </tr>
+        <tr>
+            <td  data-th-text="${oneNews.getContent()}"></td>
+        </tr>
         </thead>
     </table>
 </div>
+
+<!-- TODO-k -->
+<div class="container">
+    <table class="table table-sm"> <!-- keskenyebbre -->
+        <thead>
+        <tr> <!-- th::each -->
+            <td>
+                <!-- dátum, szerző -->
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <!-- üzenet -->
+            </td>
+        </tr>
+        </thead>
+    </table>
+</div>
+<!-- TODO
+            ha logged in user -> kommentelési lehetőség
+
+               -->
 </body>
 </html>

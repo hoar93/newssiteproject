@@ -1,7 +1,9 @@
 package newsportal.controllers;
 
 import newsportal.dto.NewsDto;
+import newsportal.model.Comment;
 import newsportal.model.News;
+import newsportal.services.CommentService;
 import newsportal.services.NewsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,19 +13,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class NewsController {
 
-    NewsServices newsServices;
+    private NewsServices newsServices;
+    private CommentService commentService;
 
     @Autowired
-    public NewsController(NewsServices newsServices) {
+    public NewsController(NewsServices newsServices, CommentService commentService) {
         this.newsServices = newsServices;
+        this.commentService = commentService;
     }
 
-    /*
-    @GetMapping(path = "/news")
-     */
     public String showNews() {
         return null;
     }
@@ -33,7 +37,9 @@ public class NewsController {
             @PathVariable("newsId") Long newsId,
             Model model) {
         News oneNews = newsServices.oneNews(newsId);
+        List<Comment> comments = commentService.allComments(oneNews);
         model.addAttribute("oneNews", oneNews);
+        model.addAttribute("comments", comments);
         return "news";
     }
 

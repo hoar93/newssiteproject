@@ -14,7 +14,7 @@ public class Comment {
     @ManyToOne
     private News news;
 
-    @ManyToOne
+    @ManyToOne (targetEntity = User.class)
     private User creator;
 
     private String message;

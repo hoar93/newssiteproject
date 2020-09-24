@@ -16,7 +16,7 @@ import java.util.List;
 public class HashtagService {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     private HashtagRepository hashtagRepository;
 

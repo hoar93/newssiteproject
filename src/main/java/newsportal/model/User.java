@@ -42,7 +42,7 @@ public class User implements UserDetails {
     @ManyToMany
     private List<Hashtag> hashtags = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany (targetEntity = Comment.class)
     private List<Comment> comments = new ArrayList<>();
 
 

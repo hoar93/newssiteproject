@@ -19,7 +19,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @Controller
 public class HomeController {
 
-    NewsServices newsServices;
+    private NewsServices newsServices;
 
     @Autowired
     public HomeController(NewsServices newsServices) {

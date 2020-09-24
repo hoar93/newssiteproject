@@ -24,7 +24,7 @@ import java.util.List;
 public class NewsServices {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     private NewsRepository newsRepository;
     private HashtagRepository hashtagRepository;
