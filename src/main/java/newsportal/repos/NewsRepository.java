@@ -9,7 +9,7 @@ public interface NewsRepository extends PagingAndSortingRepository<News, Long> {
 
 //public interface NewsRepository extends JpaRepository<News, Long> {
     List<News> findFirst10ByOrderByCreationTimeAsc();
-    //News findById();
+    News findNewsById(Long id);
 
     //List<News> findAll();
 

@@ -1,9 +1,11 @@
 package newsportal.services;
 
+import newsportal.dto.CommentDto;
 import newsportal.model.Comment;
 import newsportal.model.News;
 import newsportal.model.User;
 import newsportal.repos.CommentRepository;
+import newsportal.repos.NewsRepository;
 import newsportal.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,21 +26,24 @@ public class CommentService {
 
     private CommentRepository commentRepository;
     private UserRepository userRepository;
+    private NewsRepository newsRepository;
     // private User loggedInUser; //TODO jó ezt be autowiredezni?
 
     @Autowired
-    public CommentService(CommentRepository commentRepository, UserRepository userRepository) {
+    public CommentService(CommentRepository commentRepository, UserRepository userRepository, NewsRepository newsRepository) {
         this.commentRepository = commentRepository;
         this.userRepository = userRepository;
+        this.newsRepository = newsRepository;
     }
 
     @Transactional
-    public void createComment(String message) {
+    public void createComment(CommentDto commentDto) {
         Comment comment = new Comment();
         comment.setCreationTime(LocalDateTime.now());
         User loggedInUser = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         comment.setCreator(loggedInUser);
-        comment.setMessage(message);
+        comment.setMessage(commentDto.getMessage());
+        comment.setNews(newsRepository.findNewsById(commentDto.getNewsId()));
         em.persist(comment);
     }
 

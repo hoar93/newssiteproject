@@ -1,9 +1,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head data-th-replace="menu :: newhead">
-    <meta charset="UTF-8">
+
+
 </head>
+
 <body>
-<nav data-th-replace="menu :: newmenu"></nav> <!--TODO + komment-->
+<nav data-th-replace="menu :: newmenu"></nav>
 <div class="container">
     <table class="table table-sm">
         <thead>
@@ -17,30 +19,40 @@
         </thead>
     </table>
 </div>
-
 <!-- TODO-k -->
-<div class="container">
-    <table class="table table-sm"> <!-- keskenyebbre -->
-        <thead>
-        <tr> <!-- th::each -->
-            <td>
-                <!-- dátum, szerző -->
-            </td>
-            <td>
 
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <!-- üzenet -->
-            </td>
-        </tr>
-        </thead>
-    </table>
+<div class="w-50">
+
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseComments" aria-expanded="false" aria-controls="collapseExample">
+        Kommentek
+    </button>
+    <div class="collapse" id="collapseComments">
+        <div class="card card-body">
+            <div class="container">
+                <table class="table table-sm"> <!-- keskenyebbre -->
+                    <thead data-th-each="oneComment: ${comments}">
+                    <tr > <!-- th::each -->
+                        <td data-th-text="${oneComment.getCreator()}"></td>
+                        <td data-th-text="${oneComment.getCreationTime()}"></td>
+                    </tr>
+                    <tr>
+                        <td data-th-text="${oneComment.getMessage()}"></td>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <form data-th-action="@{'/addComment/'+${commentDto.newsId}}" method="POST" data-th-object="${commentDto}">
+                <div class="form-group">
+                    <label for="comment">Most szólj hozzá:</label>
+                    <textarea data-th-field="${commentDto.message}" id="comment" class="form-control"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Odateszem a megszólalásomat ;)</button>
+                <div class="mt-4">
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-<!-- TODO
-            ha logged in user -> kommentelési lehetőség
-
-               -->
+<!-- TODO ha logged in user -> kommentelési lehetőség -->
 </body>
 </html>

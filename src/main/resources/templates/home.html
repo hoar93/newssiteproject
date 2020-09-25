@@ -14,7 +14,7 @@
                 <div data-th-text="${oneNews.getCreationTime()}"></div>
             </td>
             <td>
-                <div data-th-text="${oneNews.getContent()}"></div>
+                <div> <a data-th-href="@{'/news/'+${oneNews.getId()}}"  data-th-text="${oneNews.getContent()}"></a></div>
             </td>
             <td>
                 <div data-th-text="${oneNews.getAuthor()}"></div>

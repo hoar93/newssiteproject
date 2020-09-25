@@ -1,5 +1,6 @@
 package newsportal.controllers;
 
+import newsportal.dto.CommentDto;
 import newsportal.dto.NewsDto;
 import newsportal.model.Comment;
 import newsportal.model.News;
@@ -38,8 +39,13 @@ public class NewsController {
             Model model) {
         News oneNews = newsServices.oneNews(newsId);
         List<Comment> comments = commentService.allComments(oneNews);
+        CommentDto commentDto = new CommentDto();
+        commentDto.setNewsId(newsId);
+
         model.addAttribute("oneNews", oneNews);
         model.addAttribute("comments", comments);
+        model.addAttribute("commentDto", commentDto);
+
         return "news";
     }
 
