@@ -28,8 +28,18 @@ public class CommentController {
             @PathVariable("newsId") Long newsId,
             @ModelAttribute("comment") CommentDto comment) {
         comment.setNewsId(newsId);
-       commentService.createComment(comment);
+        commentService.createComment(comment);
 
-       return "redirect:/news/";
+        return "redirect:/news/";
     }
+
+    @PostMapping(path = "/deleteComment/{newsId}/{commentId}")
+    public String deleteComment(
+            @PathVariable("newsId") Long newsId,
+            @PathVariable("commentId") Long commentId) {
+        Long thatNews= newsId;
+        commentService.deleteComment(commentId);
+        return "redirect:/news/{thatNews}";
+    }
+
 }

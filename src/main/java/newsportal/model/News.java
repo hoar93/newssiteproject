@@ -17,6 +17,7 @@ public class News {
     private Long id;
     private String author;
     private String title;
+    private String mainContent;
     private String content;
 
     @ManyToMany (mappedBy = "news")
@@ -46,6 +47,14 @@ public class News {
 
     public News() {
 
+    }
+
+    public String getMainContent() {
+        return mainContent;
+    }
+
+    public void setMainContent(String mainContent) {
+        this.mainContent = mainContent;
     }
 
     public void setHashtagList(List<Hashtag> hashtagList) {

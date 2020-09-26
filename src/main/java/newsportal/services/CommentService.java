@@ -50,4 +50,8 @@ public class CommentService {
     public List<Comment> allComments(News news) {
         return commentRepository.findAllCommentByNews(news);
     }
+
+    public void deleteComment(Long commentId) {
+        commentRepository.deleteCommentById(commentId);
+    }
 }
