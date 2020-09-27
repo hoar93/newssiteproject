@@ -51,6 +51,11 @@ public class NewsServices {
     }
 
     @Transactional
+    public void updateContent(Long id, String content) {
+        newsRepository.updateNewsContent(id, content);
+    }
+
+    @Transactional
     public void createNews(NewsDto newNewsDto) {
         //új news-t létrehoz
         News news = new News();

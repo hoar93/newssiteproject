@@ -60,6 +60,14 @@ public class NewsController {
         newsServices.createNews(news);
         return "redirect:/home";
     }
+    @PostMapping(path = "/updateNewsContent/{newsId}")
+    public String updateComment(
+            @PathVariable("newsId") Long newsId,
+            @ModelAttribute("content") String content) {
+        commentService.updateCommentMessage(newsId, content);
+
+        return "redirect:/news/";
+    }
 
 
 }

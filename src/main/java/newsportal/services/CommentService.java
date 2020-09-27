@@ -54,4 +54,8 @@ public class CommentService {
     public void deleteComment(Long commentId) {
         commentRepository.deleteCommentById(commentId);
     }
+
+    public void updateCommentMessage(Long id, String message) {
+        commentRepository.updateCommentMessage(id, message);
+    }
 }

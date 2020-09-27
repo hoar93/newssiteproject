@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.time.LocalDateTime;
+
 @Controller
 public class CommentController {
     private CommentService commentService;
@@ -32,6 +34,17 @@ public class CommentController {
 
         return "redirect:/news/";
     }
+
+    @PostMapping(path = "/updateComment/{commentId}")
+    public String updateComment(
+            @PathVariable("commentId") Long commentId,
+            @ModelAttribute("message") String message) {
+        commentService.updateCommentMessage(commentId, message);
+
+        return "redirect:/news/";
+    }
+
+
 
     @PostMapping(path = "/deleteComment/{newsId}/{commentId}")
     public String deleteComment(
