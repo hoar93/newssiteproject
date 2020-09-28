@@ -1,6 +1,7 @@
 package newsportal.utils;
 
 import newsportal.model.Authority;
+import newsportal.model.News;
 import newsportal.model.User;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -54,6 +55,32 @@ public class DBInitializer {
             em.persist(user);
             em.persist(admin);
         }
+        //TODO FONTOS contetn/main content csere, news.html-ben is
+        if (em.createQuery("select count(n) from News n", Long.class).getSingleResult() < 7) {
+
+            //TODO ciklussal
+            News news1 = new News("admin", "cim 1", "bevezeto content, roviden 1", "ez pedig a nagyjából a main content az első cikknél");
+            News news2 = new News("admin", "cim 2", "bevezeto content, roviden 2", "ez pedig a nagyjából a main content a második cikknél");
+            News news3 = new News("admin", "cim 3", "bevezeto content, roviden 3", "ez pedig a nagyjából a main content a harmadik cikknél");
+            News news4 = new News("admin", "cim 4", "bevezeto content, roviden 4", "ez pedig a nagyjából a main content a negyedik cikknél");
+            News news5 = new News("admin", "cim 5", "bevezeto content, roviden 5", "ez pedig a nagyjából a main content az ötödik cikknél");
+            News news6 = new News("admin", "cim 6", "bevezeto content, roviden 6", "ez pedig a nagyjából a main content a hatodik cikknél");
+            News news7 = new News("admin", "cim 7", "bevezeto content, roviden 7", "ez pedig a nagyjából a main content a hetedik cikknél");
+            News news8 = new News("admin", "cim 8", "bevezeto content, roviden 8", "ez pedig a nagyjából a main content a nyolcadik cikknél");
+            News news9 = new News("admin", "cim 9", "bevezeto content, roviden 9", "ez pedig a nagyjából a main content a kilencedik cikknél");
+
+            em.persist(news1);
+            em.persist(news2);
+            em.persist(news3);
+            em.persist(news4);
+            em.persist(news5);
+            em.persist(news6);
+            em.persist(news7);
+            em.persist(news8);
+            em.persist(news9);
+        }
+
+
     }
 
 }

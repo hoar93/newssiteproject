@@ -17,8 +17,8 @@ public class News {
     private Long id;
     private String author;
     private String title;
-    private String mainContent;
     private String content;
+    private String mainContent;
 
     @ManyToMany (mappedBy = "news")
     private List<Hashtag> hashtagList = new ArrayList<>();
@@ -47,6 +47,14 @@ public class News {
 
     public News() {
 
+    }
+
+    public News(String author, String title, String content, String mainContent) {
+        this.author = author;
+        this.title = title;
+        this.content = content;
+        this.mainContent = mainContent;
+        this.creationTime = LocalDateTime.now();
     }
 
     public String getMainContent() {
