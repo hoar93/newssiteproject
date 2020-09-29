@@ -1,6 +1,7 @@
 package newsportal.utils;
 
 import newsportal.model.Authority;
+import newsportal.model.Hashtag;
 import newsportal.model.News;
 import newsportal.model.User;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -12,7 +13,10 @@ import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 @Component
 public class DBInitializer {
@@ -55,10 +59,11 @@ public class DBInitializer {
             em.persist(user);
             em.persist(admin);
         }
-        //TODO FONTOS contetn/main content csere, news.html-ben is
+
         if (em.createQuery("select count(n) from News n", Long.class).getSingleResult() < 7) {
 
             //TODO ciklussal
+
             News news1 = new News("admin", "cim 1", "bevezeto content, roviden 1", "ez pedig a nagyjából a main content az első cikknél");
             News news2 = new News("admin", "cim 2", "bevezeto content, roviden 2", "ez pedig a nagyjából a main content a második cikknél");
             News news3 = new News("admin", "cim 3", "bevezeto content, roviden 3", "ez pedig a nagyjából a main content a harmadik cikknél");
@@ -69,18 +74,42 @@ public class DBInitializer {
             News news8 = new News("admin", "cim 8", "bevezeto content, roviden 8", "ez pedig a nagyjából a main content a nyolcadik cikknél");
             News news9 = new News("admin", "cim 9", "bevezeto content, roviden 9", "ez pedig a nagyjából a main content a kilencedik cikknél");
 
-            em.persist(news1);
-            em.persist(news2);
-            em.persist(news3);
-            em.persist(news4);
-            em.persist(news5);
-            em.persist(news6);
-            em.persist(news7);
-            em.persist(news8);
-            em.persist(news9);
+            List<Hashtag> hashtags = new ArrayList<>();
+            hashtags.add(new Hashtag("elso"));
+            hashtags.add(new Hashtag("masodik"));
+            hashtags.add(new Hashtag("harmadik"));
+            hashtags.add(new Hashtag("negyedik"));
+            hashtags.add(new Hashtag("otodik"));
+            hashtags.add(new Hashtag("hatodik"));
+            hashtags.add(new Hashtag("hetedik"));
+            hashtags.add(new Hashtag("nyolcadik"));
+
+            setToEachother(hashtags, news1, "123");
         }
-
-
     }
 
+    //(összes hashtag listája, azEgyHír, string: egybe számok, int lesz belőlük. ezeket a hashtatageket (id) szetteli egymáshoz, és perzisztál mindent
+    private void setToEachother(List<Hashtag> hashtags, News news, String hashtagsToSet){
+        List<Integer> listInInt = split(hashtagsToSet);
+        List<Hashtag> hashesToSet = new ArrayList<>();
+        for (int i = 0; i < listInInt.size(); i++) {
+            Hashtag actualHashtag = hashtags.get(listInInt.get(i));
+            actualHashtag.addNews(news);
+            hashesToSet.add(actualHashtag);
+            em.persist(actualHashtag);
+        }
+        news.setHashtagList(hashesToSet);
+        em.persist(news);
+    }
+
+    private List<Integer> split (String setTheseList)
+    {
+        List<Integer> splittedList = new ArrayList<>();
+        String[] setThese = (setTheseList.split(""));
+        List<String> splittedListString = Arrays.asList(setThese);
+        for (String s : splittedListString) {
+            splittedList.add(Integer.valueOf(s));
+        }
+        return splittedList;
+    }
 }

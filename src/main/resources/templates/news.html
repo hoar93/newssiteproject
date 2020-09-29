@@ -58,6 +58,9 @@
 
                                 </div>
                             </div></td>
+                        <td><form data-th-action="@{'/deleteComment/'+${oneComment.getId()}}" method="POST"></form><!-- TODO nemjo, kell neki object, id bele -->
+                            <button type="button" class="btn btn-outline-danger btn-sm" >Töröl</button>
+                        </td>
                     </tr>
                      <!-- TODO törlés/szerkesztés -->
                     </thead>

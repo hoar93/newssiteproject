@@ -18,6 +18,10 @@ public class Hashtag {
     public Hashtag() {
     }
 
+    public Hashtag(String name) {
+        this.name = name;
+    }
+
     public List<User> getUserList() {
         return userList;
     }
