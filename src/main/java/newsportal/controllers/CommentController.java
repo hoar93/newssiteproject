@@ -32,27 +32,28 @@ public class CommentController {
         comment.setNewsId(newsId);
         commentService.createComment(comment);
 
-        return "redirect:/news/";
+        return "redirect:/news/{newsId}";
     }
 
-    @PostMapping(path = "/updateComment/{commentId}")
+    @PostMapping(path = "/updateComment/{newsId}/{commentId}")
     public String updateComment(
+            @PathVariable("newsId") int newsId,
             @PathVariable("commentId") Long commentId,
             @ModelAttribute("message") String message) {
         commentService.updateCommentMessage(commentId, message);
 
-        return "redirect:/news/";
+        return "redirect:/news/{newsId}";
     }
 
 
 
-    @PostMapping(path = "/deleteComment/{newsId}/{commentId}")
+    @PostMapping(path = "/deleteComment/{newsId}/{commentId}") //(path = "/deleteComment/{newsId}/{commentId}")
     public String deleteComment(
-            @PathVariable("newsId") Long newsId,
+            @PathVariable("newsId") int newsId,
             @PathVariable("commentId") Long commentId) {
-        Long thatNews= newsId;
+        //int thatNews= newsId;
         commentService.deleteComment(commentId);
-        return "redirect:/news/{thatNews}";
+        return "redirect:/news/{newsId}";
     }
 
 }

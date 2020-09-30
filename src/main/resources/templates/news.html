@@ -10,11 +10,11 @@
     <table class="table table-sm">
         <thead>
         <tr>
-            <td  data-th-text="${oneNews.getTitle()}"></td>
-            <td  data-th-text="${oneNews.getAuthor()}"></td>
+            <td data-th-text="${oneNews.getTitle()}"></td>
+            <td data-th-text="${oneNews.getAuthor()}"></td>
         </tr>
         <tr>
-            <td  data-th-text="${oneNews.getMainContent()}"></td>
+            <td data-th-text="${oneNews.getMainContent()}"></td>
         </tr>
         <!-- TODO törlési, módosítás lehetőség -->
         </thead>
@@ -22,7 +22,10 @@
 </div>
 <div class="w-50">
 
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseComments" aria-expanded="false" aria-controls="collapseExample">
+    <!-- kommentek -->
+    <!-- TODO ne csukódjon be hozzáadásnál, update-nél, és törlésnél se, csak ha üres -->
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseComments"
+            aria-expanded="false" aria-controls="collapseExample">
         Kommentek
     </button>
     <div class="collapse" id="collapseComments">
@@ -30,42 +33,59 @@
             <div class="container">
                 <table class="table table-sm"> <!-- keskenyebbre -->
                     <thead data-th-each="oneComment: ${comments}">
-                    <tr > <!-- th::each -->
+                    <tr> <!-- th::each -->
                         <td data-th-text="${oneComment.getCreator()}"></td>
                         <td data-th-text="${oneComment.getCreationTime()}"></td>
                     </tr>
                     <tr>
                         <td data-th-text="${oneComment.getMessage()}"></td>
                     </tr>
-                    <tr> <!--badge badge-secondary  | btn btn-outline-secondary btn-sm -->
-                        <td>  <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse" data-th-href="@{'#collapseEditComments'+${oneComment.getId()}}" aria-expanded="false" aria-controls="collapseExample">
-                            Komment szerkesztése
-                        </button>
-                            <div class="collapse" data-th-id="@{'collapseEditComments'+${oneComment.getId()}}"}>
+                    <tr>
+                        <td>
+                            <!-- komment módosítása -->
+                            <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"
+                                    data-th-href="@{'#collapseEditComments'+${oneComment.getId()}}"
+                                    aria-expanded="false" aria-controls="collapseExample">
+                                Komment szerkesztése
+                            </button>
+                            <div class="collapse" data-th-id="@{'collapseEditComments'+${oneComment.getId()}}" }>
                                 <div class="card card-body">
                                     <div class="container">
-                                        <form data-th-action="@{'/updateComment/'+${oneComment.getId()}}" method="POST" data-th-object="${commentDto.message}">
+                                        <form data-th-action="@{'/updateComment/'+${oneNews.getId()}+'/'+${oneComment.getId()}}"
+                                              method="POST"
+                                              data-th-object="${commentDto.message}">
                                             <div class="form-group"> <!-- data-th-field="${commentDto.message}" -->
-                                                <label for="@{'editComment'+${oneComment.getId()}}">Gyere szerkessz rám:</label> <!-- data-th-field="${commentDto.message}"-->
-                                                <input type="text" data-th-field="${commentDto.message}" th:attr="value = ${oneComment.getMessage()}"  id="@{'editComment'+${oneComment.getId()}}" class="form-control">
+                                                <label for="@{'editComment'+${oneComment.getId()}}">Gyere szerkessz
+                                                    rám:</label> <!-- data-th-field="${commentDto.message}"-->
+                                                <input type="text" data-th-field="${commentDto.message}"
+                                                       th:attr="value = ${oneComment.getMessage()}"
+                                                       id="@{'editComment'+${oneComment.getId()}}" class="form-control">
                                             </div>
-                                            <button type="submit" class="btn btn-outline-success btn-sm">Rámentek ;)</button>
-
+                                            <button type="submit" class="btn btn-outline-success btn-sm">Rámentek ;)
+                                            </button>
                                             <div class="mt-4">
                                             </div>
                                         </form>
                                     </div>
 
                                 </div>
-                            </div></td>
-                        <td><form data-th-action="@{'/deleteComment/'+${oneComment.getId()}}" method="POST"></form><!-- TODO nemjo, kell neki object, id bele -->
-                            <button type="button" class="btn btn-outline-danger btn-sm" >Töröl</button>
+                            </div>
+                        </td>
+                        <td>
+                            <!-- komment törlése -->
+                            <!-- TODO felugró modal megerősítés-->
+                            <form data-th-action="@{'/deleteComment/'+${oneNews.getId()}+'/'+${oneComment.getId()}}"
+                                  method="POST">
+                                <button type="submit" class="btn btn-outline-danger btn-sm">Töröl</button>
+                            </form>
                         </td>
                     </tr>
-                     <!-- TODO törlés/szerkesztés -->
+
                     </thead>
                 </table>
             </div>
+
+            <!-- új komment írása -->
             <!-- TODO csak ha logged in user!  -->
             <form data-th-action="@{'/addComment/'+${commentDto.newsId}}" method="POST" data-th-object="${commentDto}">
                 <div class="form-group">
@@ -76,8 +96,6 @@
                 <div class="mt-4">
                 </div>
             </form>
-            <!-- komment módosítás -->
-
         </div>
     </div>
 </div>

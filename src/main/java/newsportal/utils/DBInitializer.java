@@ -60,7 +60,7 @@ public class DBInitializer {
             em.persist(admin);
         }
 
-        if (em.createQuery("select count(n) from News n", Long.class).getSingleResult() < 7) {
+        if (em.createQuery("select count(n) from News n", Long.class).getSingleResult() < 1) {
 
             //TODO ciklussal
 

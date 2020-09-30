@@ -51,6 +51,7 @@ public class CommentService {
         return commentRepository.findAllCommentByNews(news);
     }
 
+    @Transactional
     public void deleteComment(Long commentId) {
         commentRepository.deleteCommentById(commentId);
     }
