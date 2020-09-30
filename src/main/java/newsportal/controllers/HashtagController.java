@@ -32,11 +32,26 @@ public class HashtagController {
         HashtagDto newDto = new HashtagDto();
         List<HashtagDto> allFollowed = userService.followedHashtags();
 
-        model.addAttribute("allHashtags",hashtagList);
+        List<HashtagDto> clearList = removeFollowed(hashtagList, allFollowed);
+
+
+        model.addAttribute("allHashtags",clearList);
         model.addAttribute("allFollowed", allFollowed);
         model.addAttribute("hashtagdto", newDto);
 
         return "hashtagTests";
+    }
+    private List<HashtagDto> removeFollowed(List<HashtagDto> allHashtags, List<HashtagDto> followedHashtags) {
+        List <HashtagDto> clearList = allHashtags;
+        for(int i = 0; i < followedHashtags.size(); i++) {
+            //String actualFollowedHashtag = followedHashtags.get(i).getName();
+            for(int j = 0; j < allHashtags.size(); j++) {
+                if (followedHashtags.get(i).getName().equals(allHashtags.get(j).getName())) {
+                    clearList.remove(allHashtags.get(j));
+                }
+            }
+        }
+        return clearList;
     }
     @PostMapping("/addHashtag")
     public String addHashtag(@ModelAttribute ("hashtag") HashtagDto hashtag) {
