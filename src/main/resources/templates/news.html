@@ -74,10 +74,42 @@
                         <td>
                             <!-- komment törlése -->
                             <!-- TODO felugró modal megerősítés-->
-                            <form data-th-action="@{'/deleteComment/'+${oneNews.getId()}+'/'+${oneComment.getId()}}"
-                                  method="POST">
-                                <button type="submit" class="btn btn-outline-danger btn-sm">Töröl</button>
-                            </form>
+                            <!--<form data-th-action="@{'/deleteComment/'+${oneNews.getId()}+'/'+${oneComment.getId()}}"
+                                  method="POST">-->
+                            <button type="submit" class="btn btn-outline-danger btn-sm" data-toggle="modal"
+                                    data-target="#deleteCommentModal">Töröl
+                            </button>
+
+
+                            <div class="modal fade" id="deleteCommentModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Törlés</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Biztosan törlöd a kommentet?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                            <form data-th-action="@{'/deleteComment/'+${oneNews.getId()}+'/'+${oneComment.getId()}}"
+                                                  method="POST">
+                                            <button type="submit" class="btn btn btn-danger">Töröl</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TODO -->
+
+                            <!--  </form> -->
                         </td>
                     </tr>
 

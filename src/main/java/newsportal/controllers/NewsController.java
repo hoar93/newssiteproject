@@ -49,6 +49,23 @@ public class NewsController {
         return "news";
     }
 
+    @GetMapping(path = "editNews/{newsId}")
+    public String showEditNews(
+            @PathVariable("newsId") Long newsId,
+            Model model) {
+
+        return "editNews";
+    }
+
+    //TODO
+    @PostMapping(path = "editNews/{newsId}")
+    public String editNews(@PathVariable("newsId") Long newsId,
+                           @ModelAttribute("news") NewsDto news) {
+        //service.editnews();
+        return "TODO";
+    }
+
+
     @GetMapping(path = "/createNews")
     public String showCreate(Model model) {
         model.addAttribute("news", new NewsDto());
