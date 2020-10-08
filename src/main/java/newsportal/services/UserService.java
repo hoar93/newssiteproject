@@ -1,6 +1,7 @@
 package newsportal.services;
 
 import newsportal.dto.HashtagDto;
+import newsportal.model.Authority;
 import newsportal.model.Hashtag;
 import newsportal.model.User;
 import newsportal.repos.HashtagRepository;
@@ -69,5 +70,13 @@ public class UserService implements UserDetailsService {
     public void removeFollowedHashtag(String hashtagMame) {
         User loggedInUser = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         loggedInUser.removeHashtag(hashtagRepository.findHashtagByName(hashtagMame));
+    }
+    @Transactional
+    public void createUser(User user) {
+        //exception is already exist
+        //TODO átírni - register.html git/messengerapp
+        Authority userAuthority = em.createQuery("select a from Authority a where a.name = 'ROLE_USER'", Authority.class).getSingleResult();
+        user.addAuthority(userAuthority);
+        em.persist(user);
     }
 }

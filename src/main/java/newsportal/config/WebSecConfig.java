@@ -35,7 +35,7 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
                 .and()
                 .authorizeRequests()
-                .antMatchers("/","/home", "/news", "/home/**", "/hashtagFollowTest", "/news/**").permitAll()
+                .antMatchers("/","/home", "/news", "/home/**", "/hashtagFollowTest", "/news/**", "/register").permitAll()
                 .antMatchers("/webjars/bootstrap/**", "/webjars/jquery/**", "/webjars/popper.js/**").permitAll()
                 .antMatchers("/createNews").hasRole("ADMIN")
                 .anyRequest().authenticated();
