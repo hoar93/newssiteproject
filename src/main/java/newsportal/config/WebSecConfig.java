@@ -37,10 +37,9 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/","/home", "/news", "/home/**", "/hashtagFollowTest", "/news/**").permitAll()
                 .antMatchers("/webjars/bootstrap/**", "/webjars/jquery/**", "/webjars/popper.js/**").permitAll()
-                .antMatchers("/statistics").hasRole("ADMIN")
-                .antMatchers("/users", "/user/changeRole").hasRole("ADMIN")
-                .antMatchers("/createNews").permitAll()
-                //.antMatchers("/createNews").hasRole("ADMIN")
+                .antMatchers("/createNews").hasRole("ADMIN")
                 .anyRequest().authenticated();
+                //.and()
+                //.anonymous().disable();
     }
 }

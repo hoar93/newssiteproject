@@ -1,6 +1,7 @@
 package newsportal.services;
 
 import newsportal.dto.CommentDto;
+import newsportal.dto.CommentShowDto;
 import newsportal.model.Comment;
 import newsportal.model.News;
 import newsportal.model.User;
@@ -47,8 +48,31 @@ public class CommentService {
         em.persist(comment);
     }
 
-    public List<Comment> allComments(News news) {
-        return commentRepository.findAllCommentByNews(news);
+    public List<CommentShowDto> allComments(News news) {
+        User loggedInUser = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<Comment> commentsRaw = commentRepository.findAllCommentByNews(news);
+        List<CommentShowDto> comments = new ArrayList<>();
+
+        if (commentsRaw.size() > 0) {
+            for(Comment comment : commentsRaw) {
+                CommentShowDto oneComment = new CommentShowDto();
+                oneComment.setCreator(comment.getCreator().getUsername());
+                oneComment.setId(comment.getId());
+                oneComment.setCreationTime(comment.getCreationTime());
+                oneComment.setMessage(comment.getMessage());
+                if (loggedInUser.equals(null)) {
+                    oneComment.setAuthor(false);
+                } else {
+                    if(loggedInUser.equals(comment.getCreator())) {
+                        oneComment.setAuthor(true);
+                    } else {
+                        oneComment.setAuthor(false);
+                    }
+                }
+                comments.add(oneComment);
+            }
+        }
+        return comments;
     }
 
     @Transactional

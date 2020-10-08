@@ -1,12 +1,16 @@
 package newsportal.controllers;
 
 import newsportal.dto.CommentDto;
+import newsportal.dto.CommentShowDto;
 import newsportal.dto.NewsDto;
 import newsportal.model.Comment;
 import newsportal.model.News;
+import newsportal.model.User;
+import newsportal.repos.UserRepository;
 import newsportal.services.CommentService;
 import newsportal.services.NewsServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +42,7 @@ public class NewsController {
             @PathVariable("newsId") Long newsId,
             Model model) {
         News oneNews = newsServices.oneNews(newsId);
-        List<Comment> comments = commentService.allComments(oneNews);
+        List<CommentShowDto> comments = commentService.allComments(oneNews);
         CommentDto commentDto = new CommentDto();
         commentDto.setNewsId(newsId);
 

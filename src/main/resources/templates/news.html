@@ -1,4 +1,4 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head data-th-replace="menu :: newhead">
 
 
@@ -40,7 +40,8 @@
                     <tr>
                         <td data-th-text="${oneComment.getMessage()}"></td>
                     </tr>
-                    <tr>
+                    <div data-sec-authorize="isAuthenticated()"><!-- akár nem is kellhet -->
+                    <tr data-th-if="${oneComment.isAuthor()}">
                         <td>
                             <!-- komment módosítása -->
                             <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"
@@ -80,7 +81,6 @@
                                     data-target="#deleteCommentModal">Töröl
                             </button>
 
-
                             <div class="modal fade" id="deleteCommentModal" tabindex="-1" role="dialog"
                                  aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -112,7 +112,7 @@
                             <!--  </form> -->
                         </td>
                     </tr>
-
+                    </div>
                     </thead>
                 </table>
             </div>

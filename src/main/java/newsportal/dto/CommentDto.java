@@ -5,8 +5,10 @@ import newsportal.model.News;
 public class CommentDto {
 
     private Long newsId;
-
     private String message;
+
+    public CommentDto() {
+    }
 
     public Long getNewsId() {
         return newsId;
@@ -14,9 +16,6 @@ public class CommentDto {
 
     public void setNewsId(Long newsId) {
         this.newsId = newsId;
-    }
-
-    public CommentDto() {
     }
 
     public String getMessage() {
