@@ -3,6 +3,7 @@ package newsportal.controllers;
 import newsportal.dto.CommentDto;
 import newsportal.dto.CommentShowDto;
 import newsportal.dto.NewsDto;
+import newsportal.dto.NewsUpdateDto;
 import newsportal.model.Comment;
 import newsportal.model.News;
 import newsportal.model.User;
@@ -45,10 +46,13 @@ public class NewsController {
         List<CommentShowDto> comments = commentService.allComments(oneNews);
         CommentDto commentDto = new CommentDto();
         commentDto.setNewsId(newsId);
+        //boolean isAdmin = false;
+        NewsUpdateDto newsUpdateDto = new NewsUpdateDto();
 
         model.addAttribute("oneNews", oneNews);
         model.addAttribute("comments", comments);
         model.addAttribute("commentDto", commentDto);
+        model.addAttribute("newsDto", newsUpdateDto);
 
         return "news";
     }
@@ -57,16 +61,18 @@ public class NewsController {
     public String showEditNews(
             @PathVariable("newsId") Long newsId,
             Model model) {
+        //TODO - default valuehez/null esetén kell
+        // model.addAttribute(/*newsupdatedto*/)
 
         return "editNews";
     }
 
-    //TODO
+    //TODO redirekt (máshol is)
     @PostMapping(path = "editNews/{newsId}")
     public String editNews(@PathVariable("newsId") Long newsId,
-                           @ModelAttribute("news") NewsDto news) {
-        //service.editnews();
-        return "TODO";
+                           @ModelAttribute("news") NewsUpdateDto news) {
+        newsServices.updateNews(newsId, news);
+        return "redirect:/news/";
     }
 
 

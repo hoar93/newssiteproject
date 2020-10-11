@@ -17,6 +17,14 @@ public interface NewsRepository extends PagingAndSortingRepository<News, Long> {
     @Query("update News n set n.content = :content where n.id = :id")
     void updateNewsContent(@Param(value = "id") long id, @Param(value = "content") String content);
 
+    @Modifying
+    @Query("update News n set n.mainContent = :mainContent where n.id = :id")
+    void updateNewsMainContent(@Param(value = "id") long id, @Param(value = "mainContent") String mainContent);
+
+    @Modifying
+    @Query("update News n set n.title = :title where n.id = :id")
+    void updateNewsTitle(@Param(value = "id") long id, @Param(value = "title") String title);
+
     //List<News> findAll();
 
 }

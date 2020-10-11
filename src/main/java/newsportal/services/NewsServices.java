@@ -1,6 +1,7 @@
 package newsportal.services;
 
 import newsportal.dto.NewsDto;
+import newsportal.dto.NewsUpdateDto;
 import newsportal.model.Hashtag;
 import newsportal.model.News;
 import newsportal.repos.HashtagRepository;
@@ -75,6 +76,21 @@ public class NewsServices {
         List<Hashtag> hashtags = setNewsToDublicate(hashtagNames, news);
         news.setHashtagList(hashtags);
         em.persist(news);
+    }
+
+    //TODO ha null, üres lesz
+    @Transactional
+    public void updateNews(Long id, NewsUpdateDto news) {
+        if (!(news.getTitle().equals(null))) {
+            newsRepository.updateNewsTitle(id, news.getTitle());
+        }
+        if (!(news.getText().equals(null))) {
+            newsRepository.updateNewsContent(id, news.getText());
+        }
+        if (!(news.getMainText().equals(null))) {
+            newsRepository.updateNewsMainContent(id, news.getMainText());
+        }
+
     }
 
     private List<Hashtag> setNewsToDublicate(List<String> hashtagNameList, News news) {
