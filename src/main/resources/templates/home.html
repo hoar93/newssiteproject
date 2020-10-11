@@ -15,9 +15,12 @@
             </td>
         </tr>
     </table>
-    <h2><strong>Hírek</strong></h2>
+
     <table class="table table-sm">
         <thead>
+        <h2><strong>Hírek</strong></h2>
+        </thead>
+        <tbody>
         <tr data-th-each="oneNews: ${allNews}">
             <td>
                 <div data-th-text="${oneNews.getCreationTime()}"></div>
@@ -29,17 +32,22 @@
                 <div data-th-text="${oneNews.getAuthor()}"></div>
                 <div data-th-text="${oneNews.getTitle()}"></div>
             </td>
-        </thead>
+        </tbody>
     </table>
     <div>
-        Total items: [[${totalNews}]]
+        Összes cikk: [[${totalNews}]]
+        <div aria-label="Page navigation example">
+            <table class="pagination" data-th-each="actualFirst: ${pageNumbers}">
+                <tr>
 
-        <nav aria-label="Page navigation example">
-            <ul class="pagination" data-th-each="actualFirst: ${pageNumbers}">
-                <li class="page-item"><a data-th-href="@{'/home/'+${actualFirst}+'/'}" data-th-text=${actualFirst}></a>
-                </li>
-            </ul>
-        </nav>
+                    <td>
+                        <div class="page-item"><a data-th-href="@{'/home/'+${actualFirst}+'/'}"
+                                                  data-th-text=${actualFirst}>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
 
     </div>
 </div>

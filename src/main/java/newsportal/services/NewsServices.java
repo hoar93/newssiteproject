@@ -62,6 +62,7 @@ public class NewsServices {
         news.setAuthor("Szerkesztő");
         news.setTitle(newNewsDto.getTitle());
         news.setContent(newNewsDto.getText());
+        news.setMainContent(newNewsDto.getMainText());
         news.setCreationTime(LocalDateTime.now());
 
         //hashtagek intézése

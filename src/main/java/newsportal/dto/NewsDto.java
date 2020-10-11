@@ -5,9 +5,18 @@ import java.util.List;
 public class NewsDto {
     private String title;
     private String text;
+    private String mainText;
     private String hashtags;
 
     public NewsDto() {
+    }
+
+    public String getMainText() {
+        return mainText;
+    }
+
+    public void setMainText(String mainText) {
+        this.mainText = mainText;
     }
 
     public String getHashtags() {
