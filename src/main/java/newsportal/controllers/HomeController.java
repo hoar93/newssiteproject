@@ -1,6 +1,8 @@
 package newsportal.controllers;
 
+import newsportal.model.Hashtag;
 import newsportal.model.News;
+import newsportal.services.HashtagService;
 import newsportal.services.NewsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,10 +22,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class HomeController {
 
     private NewsServices newsServices;
+    private HashtagService hashtagService;
 
     @Autowired
-    public HomeController(NewsServices newsServices) {
+    public HomeController(NewsServices newsServices, HashtagService hashtagService) {
         this.newsServices = newsServices;
+        this.hashtagService = hashtagService;
     }
 
     @GetMapping("/home/{pageNumber}")
@@ -47,6 +51,7 @@ public class HomeController {
         Page<News> page = newsServices.allNews();
         long totalNews = page.getTotalElements();
         int totalPages = page.getTotalPages();
+        List<Hashtag> topHashes = hashtagService.topHashtags();
 
         List<News> allNews = page.getContent();
         if (totalPages > 0) {
@@ -59,6 +64,7 @@ public class HomeController {
         model.addAttribute("totalNews", totalNews);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("allNews", allNews);
+        model.addAttribute("topHashes", topHashes);
         return "home";
 
     }

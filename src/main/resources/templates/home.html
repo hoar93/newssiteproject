@@ -6,15 +6,24 @@
 <body>
 <nav data-th-replace="menu :: newmenu"></nav>
 <div class="container">
-    <h1>Üdv</h1>
+    <!-- top hashtagek -->
+    <h3>Leghasználtabb <em>#hashtagek</em></h3>
+    <table class="table table-sm">
+        <tr>
+            <td data-th-each="oneHash: ${topHashes}">
+                <a href="#" class="badge badge-pill badge-info" data-th-text="'#' + ${oneHash.getName()}"></a>
+            </td>
+        </tr>
+    </table>
+    <h2><strong>Hírek</strong></h2>
     <table class="table table-sm">
         <thead>
-        <tr data-th-each="oneNews: ${allNews}" >
+        <tr data-th-each="oneNews: ${allNews}">
             <td>
                 <div data-th-text="${oneNews.getCreationTime()}"></div>
             </td>
             <td>
-                <div> <a data-th-href="@{'/news/'+${oneNews.getId()}}"  data-th-text="${oneNews.getContent()}"></a></div>
+                <div><a data-th-href="@{'/news/'+${oneNews.getId()}}" data-th-text="${oneNews.getContent()}"></a></div>
             </td>
             <td>
                 <div data-th-text="${oneNews.getAuthor()}"></div>
@@ -26,8 +35,9 @@
         Total items: [[${totalNews}]]
 
         <nav aria-label="Page navigation example">
-            <ul class="pagination" data-th-each="actualFirst: ${pageNumbers}" >
-                <li class="page-item" ><a data-th-href="@{'/home/'+${actualFirst}+'/'}" data-th-text=${actualFirst}></a></li>
+            <ul class="pagination" data-th-each="actualFirst: ${pageNumbers}">
+                <li class="page-item"><a data-th-href="@{'/home/'+${actualFirst}+'/'}" data-th-text=${actualFirst}></a>
+                </li>
             </ul>
         </nav>
 

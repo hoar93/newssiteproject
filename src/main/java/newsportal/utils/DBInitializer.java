@@ -84,7 +84,13 @@ public class DBInitializer {
             hashtags.add(new Hashtag("hetedik"));
             hashtags.add(new Hashtag("nyolcadik"));
 
-            setToEachother(hashtags, news1, "123");
+            setToEachother(hashtags, news1, "012");
+            setToEachother(hashtags, news2, "123");
+            setToEachother(hashtags, news3, "456");
+            setToEachother(hashtags, news4, "567");
+            setToEachother(hashtags, news5, "124");
+            setToEachother(hashtags, news6, "013");
+            setToEachother(hashtags, news7, "467");
         }
     }
 

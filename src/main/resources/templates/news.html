@@ -56,13 +56,12 @@
                                               method="POST"
                                               data-th-object="${commentDto.message}">
                                             <div class="form-group"> <!-- data-th-field="${commentDto.message}" -->
-                                                <label for="@{'editComment'+${oneComment.getId()}}">Gyere szerkessz
-                                                    rám:</label> <!-- data-th-field="${commentDto.message}"-->
+                                                <label for="@{'editComment'+${oneComment.getId()}}">Szerkeszt:</label> <!-- data-th-field="${commentDto.message}"-->
                                                 <input type="text" data-th-field="${commentDto.message}"
                                                        th:attr="value = ${oneComment.getMessage()}"
                                                        id="@{'editComment'+${oneComment.getId()}}" class="form-control">
                                             </div>
-                                            <button type="submit" class="btn btn-outline-success btn-sm">Rámentek ;)
+                                            <button type="submit" class="btn btn-outline-success btn-sm">Elment
                                             </button>
                                             <div class="mt-4">
                                             </div>
@@ -96,7 +95,7 @@
                                         </div>
                                         <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    Close
+                                                    Mégse
                                                 </button>
                                             <form data-th-action="@{'/deleteComment/'+${oneNews.getId()}+'/'+${oneComment.getId()}}"
                                                   method="POST">

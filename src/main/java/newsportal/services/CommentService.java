@@ -60,7 +60,7 @@ public class CommentService {
                 oneComment.setId(comment.getId());
                 oneComment.setCreationTime(comment.getCreationTime());
                 oneComment.setMessage(comment.getMessage());
-                if (loggedInUser.equals(null)) {
+                if (loggedInUser.equals(null)) { //vannak bajok
                     oneComment.setAuthor(false);
                 } else {
                     if(loggedInUser.equals(comment.getCreator())) {
