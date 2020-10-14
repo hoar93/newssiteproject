@@ -57,6 +57,14 @@ public class NewsController {
         return "news";
     }
 
+    @GetMapping(path = "/hashtag/{hashtagId}")
+    public String showArticlesWithHashtag(
+            @PathVariable("hashtagId") Long hashtagId) {
+            //TODO
+        return null;
+    }
+
+
     @GetMapping(path = "editNews/{newsId}")
     public String showEditNews(
             @PathVariable("newsId") Long newsId,

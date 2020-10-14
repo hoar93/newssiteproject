@@ -55,12 +55,21 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
+    public void setFollowedById(Long hashtagId) {
+        User loggedInUser = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        Hashtag hashtag1 = hashtagRepository.findHashtagById(hashtagId);
+        hashtag1.addUser(loggedInUser);
+        loggedInUser.addHashtag(hashtagRepository.findHashtagById(hashtagId));
+    }
+
+    @Transactional
     public List<HashtagDto> followedHashtags() {
         User loggedInUser = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         List<HashtagDto> followedHashtags = new ArrayList<>();
         for (int i = 0; i < loggedInUser.getHashtags().size(); i++) {
             HashtagDto hashtagDto = new HashtagDto();
             hashtagDto.setName(loggedInUser.getHashtags().get(i).getName());
+            //hashtagDto.setId(loggedInUser.getHashtags().get(i).getId());
             followedHashtags.add(hashtagDto);
         }
         return followedHashtags;

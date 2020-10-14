@@ -53,6 +53,7 @@ public class HashtagService {
         for (int i = 0; i < hashtags.size(); i++) {
             HashtagDto oneHash = new HashtagDto();
             oneHash.setName(hashtags.get(i).getName());
+            oneHash.setId(hashtags.get(i).getId());
             hashtagDtoList.add(oneHash);
         }
         return hashtagDtoList;

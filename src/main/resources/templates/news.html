@@ -19,6 +19,7 @@
             <td data-th-text="${oneNews.getMainContent()}"></td>
         </tr>
         <tr>
+            <!-- cikk szerkesztése -->
             <td>
                 <div sec:authorize="hasRole('ROLE_ADMIN')">
                     <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"

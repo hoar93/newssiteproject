@@ -11,6 +11,11 @@
         Összes followolva van a bejelentkezett felhasználó által.
     </div>
     <table data-th-if="${!allHashtags.empty}" class="table" id="hashtaglist">
+        <tr>
+            <td data-th-each="oneHashtag: ${allHashtags}">
+                <a data-th-href="@{'/addHashtag/'+${oneHashtag.id}}" class="badge badge-pill badge-info" data-th-text="'#' + ${oneHashtag.getName()}"></a>
+            </td>
+        </tr>
         <tr data-th-each="oneTag: ${allHashtags}">
             <td data-th-text="${oneTag.getName()}"> </td>
         </tr>
@@ -33,6 +38,11 @@
         Nincsen followed hashtag!
     </div>
     <table data-th-if="${!allFollowed.empty}" class="table" id="followedHashtags">
+        <tr>
+            <td data-th-each="oneHashtag: ${allFollowed}">
+                <a href="#" class="badge badge-pill badge-info" data-th-text="'#' + ${oneHashtag.getName()}"></a>
+            </td>
+        </tr>
         <tr data-th-each="oneFollowed: ${allFollowed}">
             <td data-th-text="${oneFollowed.getName()}"> </td>
         </tr>

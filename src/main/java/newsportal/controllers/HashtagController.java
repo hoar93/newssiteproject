@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class HashtagController {
         this.userService = userService;
     }
 
-    @GetMapping("/followedHashtags")
+    @GetMapping(path = "/followedHashtags")
     public String showHashtags(Model model) {
         List<HashtagDto> hashtagList = hashtagService.allHashtagsName(); //TODO minusz a followed-ok
 
@@ -58,7 +59,14 @@ public class HashtagController {
         userService.setFollowedHashtag(hashtag.getName());
         return "redirect:/followedHashtags/";
     }
-    @PostMapping("/removeHashtag")
+/*
+    @PostMapping(path = "/addHashtag/{hashtagId}")
+    public String addHashtag(@PathVariable("hashtagId") Long hashtagId) {
+        userService.setFollowedById(hashtagId);
+        return "redirect:/followedHashtags/";
+    }*/
+
+    @PostMapping(path = "/removeHashtag")
     public String removeHashtag(@ModelAttribute ("removeTag") HashtagDto hashtag) {
         userService.removeFollowedHashtag(hashtag.getName());
         return "redirect:/followedHashtags/";
