@@ -5,179 +5,192 @@
 </head>
 
 <body>
+
 <nav data-th-replace="menu :: newmenu"></nav>
-<div class="container">
-    <table class="table table-sm">
-        <thead>
-        <tr>
-            <td data-th-text="${oneNews.getTitle()}"></td>
-            <td data-th-text="${oneNews.getAuthor()}"></td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td data-th-text="${oneNews.getMainContent()}"></td>
-        </tr>
-        <tr>
-            <!-- cikk szerkesztése -->
-            <td>
-                <div sec:authorize="hasRole('ROLE_ADMIN')">
-                    <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"
-                            data-th-href="@{'#collapseEditNews'+${oneNews.getId()}}"
-                            aria-expanded="false" aria-controls="collapseExample">
-                        Cikk szerkesztése
-                    </button>
-                    <div class="collapse" data-th-id="@{'collapseEditNews'+${oneNews.getId()}}" }>
-                        <div class="card card-body">
-                            <div class="container">
-                                <form data-th-action="@{'/editNews/'+${oneNews.getId()}}"
-                                      method="POST"
-                                      data-th-object="${newsDto}">
-                                    <!-- TODO default value -->
-                                    <div class="form-group">
-                                        <label for="@{'editNewsTitle'+${oneNews.getId()}}">Cím:</label>
-                                        <input type="text" data-th-field="${newsDto.title}"
-                                               id="@{'editNewsTitle'+${oneNews.getId()}}" class="form-control">
+<div class="row">
+    <div class="col-md-8">
+        <!-- hírek,  -->
+        <div class="container">
+            <table class="table table-sm">
+                <thead>
+                <tr>
+                    <td data-th-text="${oneNews.getTitle()}"></td>
+                    <td data-th-text="${oneNews.getAuthor()}"></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td data-th-text="${oneNews.getMainContent()}"></td>
+                </tr>
+                <tr>
+                    <!-- cikk szerkesztése -->
+                    <td>
+                        <div sec:authorize="hasRole('ROLE_ADMIN')">
+                            <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"
+                                    data-th-href="@{'#collapseEditNews'+${oneNews.getId()}}"
+                                    aria-expanded="false" aria-controls="collapseExample">
+                                Cikk szerkesztése
+                            </button>
+                            <div class="collapse" data-th-id="@{'collapseEditNews'+${oneNews.getId()}}" }>
+                                <div class="card card-body">
+                                    <div class="container">
+                                        <form data-th-action="@{'/editNews/'+${oneNews.getId()}}"
+                                              method="POST"
+                                              data-th-object="${newsDto}">
+                                            <!-- TODO default value -->
+                                            <div class="form-group">
+                                                <label for="@{'editNewsTitle'+${oneNews.getId()}}">Cím:</label>
+                                                <input type="text" data-th-field="${newsDto.title}"
+                                                       id="@{'editNewsTitle'+${oneNews.getId()}}" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="@{'editNewsText'+${oneNews.getId()}}">Bevezető:</label>
+                                                <input type="text" data-th-field="${newsDto.text}"
+                                                       id="@{'editNewsText'+${oneNews.getId()}}" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="@{'editNewsMainText'+${oneNews.getId()}}">Cikk szövege:</label>
+                                                <input type="text" data-th-field="${newsDto.mainText}"
+                                                       id="@{'editNewsMainText'+${oneNews.getId()}}" class="form-control">
+                                            </div>
+                                            <button type="submit" class="btn btn-outline-success btn-sm">Elment
+                                            </button>
+                                            <div class="mt-4">
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="@{'editNewsText'+${oneNews.getId()}}">Bevezető:</label>
-                                        <input type="text" data-th-field="${newsDto.text}"
-                                               id="@{'editNewsText'+${oneNews.getId()}}" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="@{'editNewsMainText'+${oneNews.getId()}}">Cikk szövege:</label>
-                                        <input type="text" data-th-field="${newsDto.mainText}"
-                                               id="@{'editNewsMainText'+${oneNews.getId()}}" class="form-control">
-                                    </div>
-                                    <button type="submit" class="btn btn-outline-success btn-sm">Elment
-                                    </button>
-                                    <div class="mt-4">
-                                    </div>
-                                </form>
+
+                                </div>
                             </div>
-
                         </div>
+                    </td>
+                </tr>
+                </td>
+                </tbody>
+            </table>
+        </div>
+        <div class="w-50">
+
+            <!-- kommentek -->
+            <!-- TODO ne csukódjon be hozzáadásnál, update-nél, és törlésnél se, csak ha üres -->
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseComments"
+                    aria-expanded="false" aria-controls="collapseExample">
+                Kommentek
+            </button>
+            <div class="collapse" id="collapseComments">
+                <div class="card card-body">
+                    <div class="container">
+                        <table class="table table-sm"> <!-- keskenyebbre -->
+                            <tbody data-th-each="oneComment: ${comments}">
+                            <tr> <!-- th::each -->
+                                <td data-th-text="${oneComment.getCreator()}"></td>
+                                <td data-th-text="${oneComment.getCreationTime()}"></td>
+                            </tr>
+                            <tr>
+                                <td data-th-text="${oneComment.getMessage()}"></td>
+                            </tr>
+                            <div data-sec-authorize="isAuthenticated()"><!-- akár nem is kellhet -->
+                                <tr data-th-if="${oneComment.isAuthor()}">
+                                    <td>
+                                        <!-- komment módosítása -->
+                                        <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"
+                                                data-th-href="@{'#collapseEditComments'+${oneComment.getId()}}"
+                                                aria-expanded="false" aria-controls="collapseExample">
+                                            Komment szerkesztése
+                                        </button>
+                                        <div class="collapse" data-th-id="@{'collapseEditComments'+${oneComment.getId()}}" }>
+                                            <div class="card card-body">
+                                                <div class="container">
+                                                    <form data-th-action="@{'/updateComment/'+${oneNews.getId()}+'/'+${oneComment.getId()}}"
+                                                          method="POST"
+                                                          data-th-object="${commentDto.message}">
+                                                        <div class="form-group"> <!-- data-th-field="${commentDto.message}" -->
+                                                            <label for="@{'editComment'+${oneComment.getId()}}">Szerkeszt:</label>
+                                                            <!-- data-th-field="${commentDto.message}"-->
+                                                            <input type="text" data-th-field="${commentDto.message}"
+                                                                   th:attr="value = ${oneComment.getMessage()}"
+                                                                   id="@{'editComment'+${oneComment.getId()}}"
+                                                                   class="form-control">
+                                                        </div>
+                                                        <button type="submit" class="btn btn-outline-success btn-sm">Elment
+                                                        </button>
+                                                        <div class="mt-4">
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <!-- komment törlése -->
+                                        <!-- TODO felugró modal megerősítés-->
+                                        <!--<form data-th-action="@{'/deleteComment/'+${oneNews.getId()}+'/'+${oneComment.getId()}}"
+                                              method="POST">-->
+                                        <button type="submit" class="btn btn-outline-danger btn-sm" data-toggle="modal"
+                                                data-target="#deleteCommentModal">Töröl
+                                        </button>
+
+                                        <div class="modal fade" id="deleteCommentModal" tabindex="-1" role="dialog"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Törlés</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Biztosan törlöd a kommentet?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                            Mégse
+                                                        </button>
+                                                        <form data-th-action="@{'/deleteComment/'+${oneNews.getId()}+'/'+${oneComment.getId()}}"
+                                                              method="POST">
+                                                            <button type="submit" class="btn btn btn-danger">Töröl</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- TODO -->
+
+                                        <!--  </form> -->
+                                    </td>
+                                </tr>
+                            </div>
+                            </tbody>
+                        </table>
                     </div>
+
+                    <!-- új komment írása -->
+                    <!-- TODO csak ha logged in user!  -->
+                    <form data-th-action="@{'/addComment/'+${commentDto.newsId}}" method="POST" data-th-object="${commentDto}">
+                        <div class="form-group">
+                            <label for="comment">Most szólj hozzá:</label>
+                            <textarea data-th-field="${commentDto.message}" id="comment" class="form-control"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Odateszem a megszólalásomat ;)</button>
+                        <div class="mt-4">
+                        </div>
+                    </form>
                 </div>
-            </td>
-        </tr>
-        </td>
-        </tbody>
-    </table>
-</div>
-<div class="w-50">
-
-    <!-- kommentek -->
-    <!-- TODO ne csukódjon be hozzáadásnál, update-nél, és törlésnél se, csak ha üres -->
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseComments"
-            aria-expanded="false" aria-controls="collapseExample">
-        Kommentek
-    </button>
-    <div class="collapse" id="collapseComments">
-        <div class="card card-body">
-            <div class="container">
-                <table class="table table-sm"> <!-- keskenyebbre -->
-                    <tbody data-th-each="oneComment: ${comments}">
-                    <tr> <!-- th::each -->
-                        <td data-th-text="${oneComment.getCreator()}"></td>
-                        <td data-th-text="${oneComment.getCreationTime()}"></td>
-                    </tr>
-                    <tr>
-                        <td data-th-text="${oneComment.getMessage()}"></td>
-                    </tr>
-                    <div data-sec-authorize="isAuthenticated()"><!-- akár nem is kellhet -->
-                        <tr data-th-if="${oneComment.isAuthor()}">
-                            <td>
-                                <!-- komment módosítása -->
-                                <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse"
-                                        data-th-href="@{'#collapseEditComments'+${oneComment.getId()}}"
-                                        aria-expanded="false" aria-controls="collapseExample">
-                                    Komment szerkesztése
-                                </button>
-                                <div class="collapse" data-th-id="@{'collapseEditComments'+${oneComment.getId()}}" }>
-                                    <div class="card card-body">
-                                        <div class="container">
-                                            <form data-th-action="@{'/updateComment/'+${oneNews.getId()}+'/'+${oneComment.getId()}}"
-                                                  method="POST"
-                                                  data-th-object="${commentDto.message}">
-                                                <div class="form-group"> <!-- data-th-field="${commentDto.message}" -->
-                                                    <label for="@{'editComment'+${oneComment.getId()}}">Szerkeszt:</label>
-                                                    <!-- data-th-field="${commentDto.message}"-->
-                                                    <input type="text" data-th-field="${commentDto.message}"
-                                                           th:attr="value = ${oneComment.getMessage()}"
-                                                           id="@{'editComment'+${oneComment.getId()}}"
-                                                           class="form-control">
-                                                </div>
-                                                <button type="submit" class="btn btn-outline-success btn-sm">Elment
-                                                </button>
-                                                <div class="mt-4">
-                                                </div>
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <!-- komment törlése -->
-                                <!-- TODO felugró modal megerősítés-->
-                                <!--<form data-th-action="@{'/deleteComment/'+${oneNews.getId()}+'/'+${oneComment.getId()}}"
-                                      method="POST">-->
-                                <button type="submit" class="btn btn-outline-danger btn-sm" data-toggle="modal"
-                                        data-target="#deleteCommentModal">Töröl
-                                </button>
-
-                                <div class="modal fade" id="deleteCommentModal" tabindex="-1" role="dialog"
-                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Törlés</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Biztosan törlöd a kommentet?</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    Mégse
-                                                </button>
-                                                <form data-th-action="@{'/deleteComment/'+${oneNews.getId()}+'/'+${oneComment.getId()}}"
-                                                      method="POST">
-                                                    <button type="submit" class="btn btn btn-danger">Töröl</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- TODO -->
-
-                                <!--  </form> -->
-                            </td>
-                        </tr>
-                    </div>
-                    </tbody>
-                </table>
             </div>
-
-            <!-- új komment írása -->
-            <!-- TODO csak ha logged in user!  -->
-            <form data-th-action="@{'/addComment/'+${commentDto.newsId}}" method="POST" data-th-object="${commentDto}">
-                <div class="form-group">
-                    <label for="comment">Most szólj hozzá:</label>
-                    <textarea data-th-field="${commentDto.message}" id="comment" class="form-control"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Odateszem a megszólalásomat ;)</button>
-                <div class="mt-4">
-                </div>
-            </form>
         </div>
     </div>
+    <div class="col-md-4">
+        <!-- oldalsáv -->
+
+        <!-- TODO hiba2 -->
+        <div data-th-include="hashtagTests :: favorithashtags"></div>
+    </div>
 </div>
+
 
 </body>
 </html>

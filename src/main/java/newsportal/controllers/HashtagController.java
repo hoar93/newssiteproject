@@ -59,12 +59,14 @@ public class HashtagController {
         userService.setFollowedHashtag(hashtag.getName());
         return "redirect:/followedHashtags/";
     }
-/*
-    @PostMapping(path = "/addHashtag/{hashtagId}")
+
+    // TODO hiba1
+    @PostMapping(path = "/addNewHashtag/{hashtagId}")
     public String addHashtag(@PathVariable("hashtagId") Long hashtagId) {
         userService.setFollowedById(hashtagId);
         return "redirect:/followedHashtags/";
-    }*/
+    }
+
 
     @PostMapping(path = "/removeHashtag")
     public String removeHashtag(@ModelAttribute ("removeTag") HashtagDto hashtag) {

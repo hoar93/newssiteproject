@@ -1,8 +1,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head data-th-replace="menu :: newhead"></head>
+<head data-th-replace="menu :: newhead" ></head> <!-- data-th-replace="menu :: newhead" -->
 <body>
-<nav data-th-replace="menu :: newmenu"></nav>
-<div class="container">
+<!-- <nav data-th-replace="menu :: newmenu"></nav> -->
+<!-- TODO hiba2 / az egész am -->
+<div class="container" data-th-fragment="favorithashtags">
     <h1>hashtag following backend test</h1>
 
     <!-- Followolható Hashtagek LISTÁJA -->
@@ -13,7 +14,8 @@
     <table data-th-if="${!allHashtags.empty}" class="table" id="hashtaglist">
         <tr>
             <td data-th-each="oneHashtag: ${allHashtags}">
-                <a data-th-href="@{'/addHashtag/'+${oneHashtag.id}}" class="badge badge-pill badge-info" data-th-text="'#' + ${oneHashtag.getName()}"></a>
+                <!-- TODO hiba1 -->
+                <a data-th-href="@{'/addNewHashtag/'+${oneHashtag.id}}" class="badge badge-pill badge-info" data-th-text="'#' + ${oneHashtag.getName()}"></a>
             </td>
         </tr>
         <tr data-th-each="oneTag: ${allHashtags}">

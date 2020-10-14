@@ -5,50 +5,61 @@
 </head>
 <body>
 <nav data-th-replace="menu :: newmenu"></nav>
-<div class="container">
-    <!-- top hashtagek -->
-    <h3>Leghasználtabb <em>#hashtagek</em></h3>
-    <table class="table table-sm">
-        <tr>
-            <td data-th-each="oneHash: ${topHashes}">
-                <a href="#" class="badge badge-pill badge-info" data-th-text="'#' + ${oneHash.getName()}"></a>
-            </td>
-        </tr>
-    </table>
+<div class="row">
+    <div class="col-md-8">
+        <!-- hírek,  -->
+        <div class="container">
+        <!-- top hashtagek -->
+        <h3>Leghasználtabb <em>#hashtagek</em></h3>
+        <table class="table table-sm">
+            <tr>
+                <td data-th-each="oneHash: ${topHashes}">
+                    <a href="#" class="badge badge-pill badge-info" data-th-text="'#' + ${oneHash.getName()}"></a>
+                </td>
+            </tr>
+        </table>
 
-    <table class="table table-sm">
-        <thead>
-        <h2><strong>Hírek</strong></h2>
-        </thead>
-        <tbody>
-        <tr data-th-each="oneNews: ${allNews}">
-            <td>
-                <div data-th-text="${oneNews.getCreationTime()}"></div>
-            </td>
-            <td>
-                <div><a data-th-href="@{'/news/'+${oneNews.getId()}}" data-th-text="${oneNews.getContent()}"></a></div>
-            </td>
-            <td>
-                <div data-th-text="${oneNews.getAuthor()}"></div>
-                <div data-th-text="${oneNews.getTitle()}"></div>
-            </td>
-        </tbody>
-    </table>
-    <div>
-        Összes cikk: [[${totalNews}]]
-        <div aria-label="Page navigation example">
-            <table class="pagination" data-th-each="actualFirst: ${pageNumbers}">
-                <tr>
+        <table class="table table-sm">
+            <thead>
+            <h2><strong>Hírek</strong></h2>
+            </thead>
+            <tbody>
+            <tr data-th-each="oneNews: ${allNews}">
+                <td>
+                    <div data-th-text="${oneNews.getCreationTime()}"></div>
+                </td>
+                <td>
+                    <div><a data-th-href="@{'/news/'+${oneNews.getId()}}" data-th-text="${oneNews.getContent()}"></a></div>
+                </td>
+                <td>
+                    <div data-th-text="${oneNews.getAuthor()}"></div>
+                    <div data-th-text="${oneNews.getTitle()}"></div>
+                </td>
+            </tbody>
+        </table>
+        <div>
+            Összes cikk: [[${totalNews}]]
+            <div aria-label="Page navigation example">
+                <table class="pagination" data-th-each="actualFirst: ${pageNumbers}">
+                    <tr>
 
-                    <td>
-                        <div class="page-item"><a data-th-href="@{'/home/'+${actualFirst}+'/'}"
-                                                  data-th-text=${actualFirst}>
-                    </td>
-                </tr>
+                        <td>
+                            <div class="page-item"><a data-th-href="@{'/home/'+${actualFirst}+'/'}"
+                                                      data-th-text=${actualFirst}></a> </div>
+                        </td>
+                    </tr>
 
-            </table>
+                </table>
+            </div>
+
         </div>
-
+    </div>
+    </div>
+    <div class="col-md-4">
+        <!-- oldalsáv -->
+        <!--
+        <div data-th-include="hashtagTests :: favorithashtags"></div>
+        -->
     </div>
 </div>
 </body>
