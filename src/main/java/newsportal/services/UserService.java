@@ -69,10 +69,16 @@ public class UserService implements UserDetailsService {
         for (int i = 0; i < loggedInUser.getHashtags().size(); i++) {
             HashtagDto hashtagDto = new HashtagDto();
             hashtagDto.setName(loggedInUser.getHashtags().get(i).getName());
-            //hashtagDto.setId(loggedInUser.getHashtags().get(i).getId());
+            hashtagDto.setId(loggedInUser.getHashtags().get(i).getId());
             followedHashtags.add(hashtagDto);
         }
         return followedHashtags;
+    }
+
+    @Transactional
+    public void removeFollowedHashtagById(Long id) {
+        User loggedInUser = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        loggedInUser.removeHashtag(hashtagRepository.findHashtagById(id));
     }
 
     @Transactional
@@ -80,6 +86,7 @@ public class UserService implements UserDetailsService {
         User loggedInUser = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         loggedInUser.removeHashtag(hashtagRepository.findHashtagByName(hashtagMame));
     }
+
     @Transactional
     public void createUser(User user) {
         //exception is already exist
