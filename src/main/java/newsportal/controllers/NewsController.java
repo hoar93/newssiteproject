@@ -5,10 +5,13 @@ import newsportal.dto.CommentShowDto;
 import newsportal.dto.NewsDto;
 import newsportal.dto.NewsUpdateDto;
 import newsportal.model.Comment;
+import newsportal.model.Hashtag;
 import newsportal.model.News;
 import newsportal.model.User;
+import newsportal.repos.HashtagRepository;
 import newsportal.repos.UserRepository;
 import newsportal.services.CommentService;
+import newsportal.services.HashtagService;
 import newsportal.services.NewsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,11 +30,13 @@ public class NewsController {
 
     private NewsServices newsServices;
     private CommentService commentService;
+    private HashtagRepository hashtagRepository;
 
     @Autowired
-    public NewsController(NewsServices newsServices, CommentService commentService) {
+    public NewsController(NewsServices newsServices, CommentService commentService, HashtagRepository hashtagRepository) {
         this.newsServices = newsServices;
         this.commentService = commentService;
+        this.hashtagRepository = hashtagRepository;
     }
 
     public String showNews() {
@@ -57,11 +62,17 @@ public class NewsController {
         return "news";
     }
 
-    @GetMapping(path = "/hashtag/{hashtagId}")
-    public String showArticlesWithHashtag(
-            @PathVariable("hashtagId") Long hashtagId) {
-            //TODO
-        return null;
+    @GetMapping(path = "/hashtag/{hashtagName}")
+    public String showArticlesByOneHashtag(
+            @PathVariable("hashtagName") String hashtagName,
+            Model model) {
+        Hashtag hashtag = hashtagRepository.findHashtagByName(hashtagName);
+        List<News> newsByHashtag = newsServices.allNewsByHashtag(hashtag);
+        //TODO HIBA ide már nem jönnek át a cumók
+
+        model.addAttribute(newsByHashtag);
+
+        return "newsHashtag";
     }
 
 

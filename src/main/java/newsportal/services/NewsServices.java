@@ -51,6 +51,17 @@ public class NewsServices {
         return newsRepository.findAll(pageable);
     }
 
+    public List<News> allNewsByHashtag(Hashtag hashtag) {
+        List<News> allNewsByHashtag = new ArrayList<>();
+        for (News news : hashtag.getNews()) {
+            allNewsByHashtag.add(news);
+            //TODO HIBA
+            // itt nem jön át a news kontent/mainkontent/cím/, de átjön elv az author és a hashtaglist (?)
+        }
+
+        return allNewsByHashtag;
+    }
+
     @Transactional
     public void updateContent(Long id, String content) {
         newsRepository.updateNewsContent(id, content);

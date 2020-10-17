@@ -1,0 +1,25 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head data-th-replace="menu :: newhead">
+</head>
+
+<body>
+<nav data-th-replace="menu :: newmenu"></nav>
+
+<div class="container">
+    <table class="table table-sm">
+        <tr data-th-each="oneNews: ${newsByHashtag}">
+            <td>
+                <div data-th-text="${oneNews.getCreationTime()}"></div>
+            </td>
+            <td>
+                <div><a data-th-href="@{'/news/'+${oneNews.getId()}}" data-th-text="${oneNews.getContent()}"></a></div>
+            </td>
+            <td>
+                <div data-th-text="${oneNews.getAuthor()}"></div>
+                <div data-th-text="${oneNews.getTitle()}"></div>
+            </td>
+    </table>
+</div>
+
+</body>
+</html>

@@ -12,6 +12,7 @@ public interface NewsRepository extends PagingAndSortingRepository<News, Long> {
 
 //public interface NewsRepository extends JpaRepository<News, Long> {
     List<News> findFirst10ByOrderByCreationTimeAsc();
+
     News findNewsById(Long id);
     @Modifying
     @Query("update News n set n.content = :content where n.id = :id")
