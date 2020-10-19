@@ -67,9 +67,9 @@ public class NewsController {
             @PathVariable("hashtagName") String hashtagName,
             Model model) {
         List<News> newsByHashtag = newsServices.allNewsByHashtag(hashtagName);
-        //TODO HIBA ide már nem jönnek át a cumók
 
         model.addAttribute("newsByHashtag", newsByHashtag);
+        model.addAttribute("hashtagName", hashtagName);
 
         return "newsHashtag";
     }
