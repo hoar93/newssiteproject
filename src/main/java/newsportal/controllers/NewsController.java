@@ -66,11 +66,10 @@ public class NewsController {
     public String showArticlesByOneHashtag(
             @PathVariable("hashtagName") String hashtagName,
             Model model) {
-        Hashtag hashtag = hashtagRepository.findHashtagByName(hashtagName);
-        List<News> newsByHashtag = newsServices.allNewsByHashtag(hashtag);
+        List<News> newsByHashtag = newsServices.allNewsByHashtag(hashtagName);
         //TODO HIBA ide már nem jönnek át a cumók
 
-        model.addAttribute(newsByHashtag);
+        model.addAttribute("newsByHashtag", newsByHashtag);
 
         return "newsHashtag";
     }

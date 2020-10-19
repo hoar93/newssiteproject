@@ -1,5 +1,7 @@
 package newsportal.model;
 
+import org.springframework.data.jpa.repository.EntityGraph;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -30,6 +30,7 @@ public class HomeController {
         this.hashtagService = hashtagService;
     }
 
+    /*
     @GetMapping("/home/{pageNumber}")
     public String listByPage(Model model,
                              @PathVariable("pageNumber") int currentPage) {
@@ -44,25 +45,14 @@ public class HomeController {
         model.addAttribute("allNews", allNews);
         return "home";
     }
+    */
 
 
     @RequestMapping(value = {"/", "/home", "/news"}, method = GET)
     public String messengerHome(Model model) {
-        Page<News> page = newsServices.allNews();
-        long totalNews = page.getTotalElements();
-        int totalPages = page.getTotalPages();
+        List<News> allNews = newsServices.allNews();
         List<Hashtag> topHashes = hashtagService.topHashtags();
 
-        List<News> allNews = page.getContent();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
-        }
-
-        model.addAttribute("totalNews", totalNews);
-        model.addAttribute("totalPages", totalPages);
         model.addAttribute("allNews", allNews);
         model.addAttribute("topHashes", topHashes);
         return "home";

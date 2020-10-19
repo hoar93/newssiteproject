@@ -37,29 +37,25 @@ public class NewsServices {
     }
 
     public News oneNews(long id) {
-        return newsRepository.findById(id).get();
+        return newsRepository.findNewsById(id);
     }
 
-    public Page<News> onePage(int page) {
-        Pageable pageable = PageRequest.of(page, 3);
-        return newsRepository.findAll(pageable);
+
+
+    public List<News> allNews() {
+
+        return newsRepository.findAll();
     }
 
-    public Page<News> allNews() {
-        Pageable pageable = PageRequest.of(0, 3);
-
-        return newsRepository.findAll(pageable);
-    }
-
-    public List<News> allNewsByHashtag(Hashtag hashtag) {
+    public List<News> allNewsByHashtag(String hashtag) {
         List<News> allNewsByHashtag = new ArrayList<>();
-        for (News news : hashtag.getNews()) {
+        List<News> all = hashtagRepository.findHashtagByName(hashtag).getNews();
+        /*for (News news : hashtag.getNews()) {
             allNewsByHashtag.add(news);
             //TODO HIBA
             // itt nem jön át a news kontent/mainkontent/cím/, de átjön elv az author és a hashtaglist (?)
-        }
-
-        return allNewsByHashtag;
+        }*/
+        return all;
     }
 
     @Transactional
