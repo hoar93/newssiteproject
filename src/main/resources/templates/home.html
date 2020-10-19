@@ -21,22 +21,26 @@
             </table>
             <!-- hírek -->
             <div class="container">
-                <h3>Hírek:</h3>
+                <h3 class="mb-3">Hírek:</h3>
                 <div class="row">
                     <div class="col-sm-6" data-th-each="oneNews: ${allNews}">
                         <div class="card mb-3">
-                            <div class="card-header" data-th-text="${oneNews.getAuthor()} + ' | ' + ${oneNews.getCreationTime()}">
-
+                            <div class="card-header">
+                                <div class="float-left" data-th-text="${oneNews.getCreationTime()}"></div>
+                                <div class="float-right" data-th-text="${oneNews.getAuthor()}"></div>
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title" data-th-text="${oneNews.getTitle()}"></h5>
-                                <p class="card-text" data-th-text="${oneNews.getContent()}"></p>
+                                <div class="mb-2">
+                                    <a class="h5 card-title text-secondary" data-th-href="@{'/news/'+${oneNews.getId()}}" data-th-text="${oneNews.getTitle()}"></a>
+                                </div>
+                                <div>
+                                    <a class="card-text text-dark" data-th-href="@{'/news/'+${oneNews.getId()}}" data-th-text="${oneNews.getContent()}"></a>
+                                </div>
 
                             </div>
                             <div class="card-footer d-flex justify-content-start">
                                 <div data-th-each="oneHashtag: ${oneNews.getHashtagList()}">
-                                    <a href="#" class="badge badge-pill badge-info mr-1"
-                                       data-th-text="'#' + ${oneHashtag.getName()}"></a>
+                                    <a href="#" class="badge badge-pill badge-info mr-1" data-th-text="'#' + ${oneHashtag.getName()}"></a>
                                 </div>
                             </div>
                         </div>
