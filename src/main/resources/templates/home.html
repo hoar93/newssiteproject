@@ -10,7 +10,7 @@
         <!-- hírek blokk -->
         <div class="container">
             <!-- top hashtagek -->
-            <h3>Leghasználtabb <em>#hashtagek</em></h3>
+            <h3>Legfelkapottabb <em>#hashtagek</em></h3>
             <table class="table table-sm">
                 <tr>
                     <td data-th-each="oneHash: ${topHashes}">
@@ -20,6 +20,30 @@
                 </tr>
             </table>
             <!-- hírek -->
+            <div class="container">
+                <h3>Hírek:</h3>
+                <div class="row">
+                    <div class="col-sm-6" data-th-each="oneNews: ${allNews}">
+                        <div class="card mb-3">
+                            <div class="card-header" data-th-text="${oneNews.getAuthor()} + ' | ' + ${oneNews.getCreationTime()}">
+
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title" data-th-text="${oneNews.getTitle()}"></h5>
+                                <p class="card-text" data-th-text="${oneNews.getContent()}"></p>
+
+                            </div>
+                            <div class="card-footer d-flex justify-content-start">
+                                <div data-th-each="oneHashtag: ${oneNews.getHashtagList()}">
+                                    <a href="#" class="badge badge-pill badge-info mr-1"
+                                       data-th-text="'#' + ${oneHashtag.getName()}"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--
             <table class="table table-sm">
                 <thead>
                 <h2><strong>Hírek</strong></h2>
@@ -39,22 +63,7 @@
                     </td>
                 </tbody>
             </table>
-            <div>
-                Összes cikk: [[${totalNews}]]
-                <div aria-label="Page navigation example">
-                    <table class="pagination" data-th-each="actualFirst: ${pageNumbers}">
-                        <tr>
-
-                            <td>
-                                <div class="page-item"><a data-th-href="@{'/home/'+${actualFirst}+'/'}"
-                                                          data-th-text=${actualFirst}></a></div>
-                            </td>
-                        </tr>
-
-                    </table>
-                </div>
-
-            </div>
+            -->
         </div>
     </div>
     <div class="col-md-4">
