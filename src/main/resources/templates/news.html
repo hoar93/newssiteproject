@@ -10,11 +10,11 @@
         <div class="container">
             <div class="card">
                 <div class="card-header text-muted">
-                    <div class="h5" data-th-text="${oneNews.getTitle()}"></div>
                     <div class="float-left" data-th-text="${oneNews.getCreationTime()}"></div>
                     <div class="float-right" data-th-text="${oneNews.getAuthor()}"></div>
                 </div>
                 <div class="card-body">
+                    <div class="h5 card-title" data-th-text="${oneNews.getTitle()}"></div>
                     <div data-th-text="${oneNews.getMainContent()}"></div>
                 </div>
                 <div class="card-footer">

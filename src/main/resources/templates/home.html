@@ -10,15 +10,15 @@
         <!-- hírek blokk -->
         <div class="container">
             <!-- top hashtagek -->
-            <h3>Legfelkapottabb <em>#hashtagek</em></h3>
-            <table class="table table-sm">
-                <tr>
-                    <td data-th-each="oneHash: ${topHashes}">
-                        <a data-th-href="@{'/hashtag/' + ${oneHash.getName()}}" class="badge badge-pill badge-info"
-                           data-th-text="'#' + ${oneHash.getName()}"></a>
-                    </td>
-                </tr>
-            </table>
+            <div class="mb-3">
+                <h3>Legfelkapottabb <em>#hashtagek</em></h3>
+                <div class="d-flex justify-content-start">
+                    <div data-th-each="oneHash: ${topHashes}">
+                        <a data-th-href="@{'/hashtag/' + ${oneHash.getName()}}" class="badge badge-pill badge-info mr-3" data-th-text="'#' + ${oneHash.getName()}"></a>
+                    </div>
+                </div>
+            </div>
+
             <!-- hírek -->
             <div class="container">
                 <h3 class="mb-3">Hírek:</h3>
