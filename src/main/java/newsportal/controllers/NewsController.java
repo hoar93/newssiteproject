@@ -62,6 +62,14 @@ public class NewsController {
         return "news";
     }
 
+    @GetMapping(path = "/followedNews/")
+    public String showNewsByFollowedHashtags(Model model) {
+        List<News> allNewsByFollowedHashtags = newsServices.allNewsByFollowedHashtags();
+        model.addAttribute("followedNews", allNewsByFollowedHashtags);
+
+        return "followedNews";
+    }
+
     @GetMapping(path = "/hashtag/{hashtagName}")
     public String showArticlesByOneHashtag(
             @PathVariable("hashtagName") String hashtagName,

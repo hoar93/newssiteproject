@@ -28,7 +28,7 @@ public class HashtagController {
 
     @GetMapping(path = "/followedHashtags")
     public String showHashtags(Model model) {
-        List<HashtagDto> hashtagList = hashtagService.allHashtagsName(); //TODO minusz a followed-ok
+        List<HashtagDto> hashtagList = hashtagService.allHashtagsName();
 
         HashtagDto newDto = new HashtagDto();
         List<HashtagDto> allFollowed = userService.followedHashtags();

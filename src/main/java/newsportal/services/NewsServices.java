@@ -4,12 +4,15 @@ import newsportal.dto.NewsDto;
 import newsportal.dto.NewsUpdateDto;
 import newsportal.model.Hashtag;
 import newsportal.model.News;
+import newsportal.model.User;
 import newsportal.repos.HashtagRepository;
 import newsportal.repos.NewsRepository;
+import newsportal.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 //import sun.jvm.hotspot.debugger.Page;
@@ -29,11 +32,15 @@ public class NewsServices {
 
     private NewsRepository newsRepository;
     private HashtagRepository hashtagRepository;
+    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    public NewsServices(NewsRepository newsRepository, HashtagRepository hashtagRepository) {
+    public NewsServices(NewsRepository newsRepository, HashtagRepository hashtagRepository, UserRepository userRepository, UserService userService) {
         this.newsRepository = newsRepository;
         this.hashtagRepository = hashtagRepository;
+        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     public News oneNews(long id) {
@@ -47,14 +54,37 @@ public class NewsServices {
         return newsRepository.findAll();
     }
 
+    public List<News> allNewsByFollowedHashtags() {
+        List<News> allTheseNews = new ArrayList<>();
+        User loggedInUser = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<String> hashtags = userService.followedHashtagsNames();
+        for (String hashtag : hashtags) {
+            allTheseNews = addIfIndividual(hashtag,allTheseNews);
+        }
+        return allTheseNews;
+    }
+    //TODO dto-kat mindenhova
+    private List<News> addIfIndividual(String hashtag, List<News> news) {
+        List<News> followedNews = news;
+        Hashtag thatHashtag = hashtagRepository.findHashtagByName(hashtag);
+        if (followedNews.size() == 0) {
+            followedNews.addAll(thatHashtag.getNews());
+        } else {
+            boolean isContains = false;
+            for (News oneNews : thatHashtag.getNews()) {
+                if (!(followedNews.contains(oneNews))) {
+                    //isContains = true;
+                    followedNews.add(oneNews);
+                }
+            }
+        }
+
+        return followedNews;
+    }
+
     public List<News> allNewsByHashtag(String hashtag) {
-        List<News> allNewsByHashtag = new ArrayList<>();
         List<News> all = hashtagRepository.findHashtagByName(hashtag).getNews();
-        /*for (News news : hashtag.getNews()) {
-            allNewsByHashtag.add(news);
-            //TODO HIBA
-            // itt nem jön át a news kontent/mainkontent/cím/, de átjön elv az author és a hashtaglist (?)
-        }*/
+
         return all;
     }
 
@@ -134,4 +164,13 @@ public class NewsServices {
         return hashtags;
     }
 
+    @Transactional
+    public List<String> followedHashtagsNames() {
+        User loggedInUser = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<String> followedHashtags = new ArrayList<>();
+        for (int i = 0; i < loggedInUser.getHashtags().size(); i++) {
+            followedHashtags.add(loggedInUser.getHashtags().get(i).getName());
+        }
+        return followedHashtags;
+    }
 }

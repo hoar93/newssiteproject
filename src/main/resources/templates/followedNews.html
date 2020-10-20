@@ -1,0 +1,43 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head data-th-replace="menu :: newhead">
+</head>
+
+<body>
+<nav data-th-replace="menu :: newmenu"></nav>
+<div class="row">
+    <div class="col-md-8">
+        <!-- hírek blokk  -->
+        <div class="container">
+            <!--  -->
+            <h3 class="mb-3"> FollowedHashtagok hírei</h3>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6" data-th-each="oneNews: ${followedNews}">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <div class="float-left" data-th-text="${oneNews.getCreationTime()}"></div>
+                                <div class="float-right" data-th-text="${oneNews.getAuthor()}"></div>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-2">
+                                    <a class="h5 card-title text-secondary" data-th-href="@{'/news/'+${oneNews.getId()}}" data-th-text="${oneNews.getTitle()}"></a>
+                                </div>
+                                <a class="card-text text-dark" data-th-href="@{'/news/'+${oneNews.getId()}}" data-th-text="${oneNews.getContent()}"></a>
+
+                            </div>
+                            <div class="card-footer d-flex justify-content-start">
+                                <div data-th-each="oneHashtag: ${oneNews.getHashtagList()}">
+                                    <a href="#" class="badge badge-pill badge-info mr-1" data-th-text="'#' + ${oneHashtag.getName()}"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

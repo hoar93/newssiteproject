@@ -74,6 +74,15 @@ public class UserService implements UserDetailsService {
         }
         return followedHashtags;
     }
+    @Transactional
+    public List<String> followedHashtagsNames() {
+        User loggedInUser = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<String> followedHashtags = new ArrayList<>();
+        for (int i = 0; i < loggedInUser.getHashtags().size(); i++) {
+            followedHashtags.add(loggedInUser.getHashtags().get(i).getName());
+        }
+        return followedHashtags;
+    }
 
     @Transactional
     public void removeFollowedHashtagById(Long id) {
