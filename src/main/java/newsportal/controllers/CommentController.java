@@ -25,6 +25,16 @@ public class CommentController {
     }
 
 
+
+    @PostMapping("/flagComment/{newsId}/{commentId}/")
+    public String reportComment(
+            @PathVariable("newsId") Long newsId,
+            @PathVariable("commentId") Long commentId) {
+        commentService.flagComment(commentId);
+        return "redirect:/news/{newsId}";
+
+    }
+
     @PostMapping(path = "/addComment/{newsId}")
     public String newComment(
             @PathVariable("newsId") Long newsId,

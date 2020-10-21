@@ -38,6 +38,11 @@ public class CommentService {
     }
 
     @Transactional
+    public void flagComment(Long id) {
+        commentRepository.flagComment(id);
+    }
+
+    @Transactional
     public void createComment(CommentDto commentDto) {
         Comment comment = new Comment();
         comment.setCreationTime(LocalDateTime.now());
@@ -60,6 +65,7 @@ public class CommentService {
                 oneComment.setId(comment.getId());
                 oneComment.setCreationTime(comment.getCreationTime());
                 oneComment.setMessage(comment.getMessage());
+                oneComment.setFlagged(comment.isFlagged());
                 if (loggedInUser.equals(null)) { //vannak bajok
                     oneComment.setAuthor(false);
                 } else {

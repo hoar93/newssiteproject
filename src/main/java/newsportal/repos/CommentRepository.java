@@ -14,6 +14,10 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     void deleteCommentById(Long id);
 
     @Modifying
+    @Query("update Comment c set c.isFlagged = true where c.id =:id")
+    void flagComment(@Param(value = "id") long id);
+
+    @Modifying
     @Query("update Comment c set c.message = :message where c.id = :id")
     void updateCommentMessage(@Param(value = "id") long id, @Param(value = "message") String message);
 

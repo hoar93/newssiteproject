@@ -22,7 +22,18 @@ public class Comment {
     @DateTimeFormat(pattern = "yyyy/MMMM/dd HH:mm")
     private LocalDateTime creationTime;
 
+    private boolean isFlagged;
+
     public Comment() {
+        this.isFlagged = false;
+    }
+
+    public boolean isFlagged() {
+        return isFlagged;
+    }
+
+    public void setFlagged(boolean flagged) {
+        isFlagged = flagged;
     }
 
     public long getId() {

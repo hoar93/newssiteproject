@@ -12,16 +12,18 @@ public class CommentShowDto {
     @DateTimeFormat(pattern = "yyyy/MMMM/dd HH:mm")
     private LocalDateTime creationTime;
     private boolean isAuthor;
+    private boolean isFlagged;
 
     public CommentShowDto() {
     }
 
-    public CommentShowDto(long id, String creator, String message, LocalDateTime creationTime, boolean isAuthor) {
+    public CommentShowDto(long id, String creator, String message, LocalDateTime creationTime, boolean isAuthor, boolean isFlagged) {
         this.id = id;
         this.creator = creator;
         this.message = message;
         this.creationTime = creationTime;
         this.isAuthor = isAuthor;
+        this.isFlagged = isFlagged;
     }
 
     public long getId() {
@@ -62,5 +64,13 @@ public class CommentShowDto {
 
     public void setAuthor(boolean author) {
         isAuthor = author;
+    }
+
+    public boolean isFlagged() {
+        return isFlagged;
+    }
+
+    public void setFlagged(boolean flagged) {
+        isFlagged = flagged;
     }
 }
