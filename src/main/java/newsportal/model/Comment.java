@@ -24,8 +24,19 @@ public class Comment {
 
     private boolean isFlagged;
 
+    private boolean isChecked;
+
     public Comment() {
         this.isFlagged = false;
+        this.isChecked = false;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 
     public boolean isFlagged() {

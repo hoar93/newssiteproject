@@ -48,6 +48,7 @@ public class CommentService {
 
     @Transactional
     public void removeFlag(Long id) {
+        commentRepository.setChecked(id);
         commentRepository.removeFlagComment(id);
     }
 
@@ -75,6 +76,7 @@ public class CommentService {
                 oneComment.setCreationTime(comment.getCreationTime());
                 oneComment.setMessage(comment.getMessage());
                 oneComment.setFlagged(comment.isFlagged());
+                oneComment.setChecked(comment.isChecked());
                 if (loggedInUser.equals(null)) { //vannak bajok
                     oneComment.setAuthor(false);
                 } else {
@@ -98,5 +100,6 @@ public class CommentService {
     @Transactional
     public void updateCommentMessage(Long id, String message) {
         commentRepository.updateCommentMessage(id, message);
+        commentRepository.removeChecked(id);
     }
 }

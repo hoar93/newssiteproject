@@ -13,17 +13,19 @@ public class CommentShowDto {
     private LocalDateTime creationTime;
     private boolean isAuthor;
     private boolean isFlagged;
+    private boolean isChecked;
 
     public CommentShowDto() {
     }
 
-    public CommentShowDto(long id, String creator, String message, LocalDateTime creationTime, boolean isAuthor, boolean isFlagged) {
+    public CommentShowDto(long id, String creator, String message, LocalDateTime creationTime, boolean isAuthor, boolean isFlagged, boolean isChecked) {
         this.id = id;
         this.creator = creator;
         this.message = message;
         this.creationTime = creationTime;
         this.isAuthor = isAuthor;
         this.isFlagged = isFlagged;
+        this.isChecked = isChecked;
     }
 
     public long getId() {
@@ -72,5 +74,13 @@ public class CommentShowDto {
 
     public void setFlagged(boolean flagged) {
         isFlagged = flagged;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 }
