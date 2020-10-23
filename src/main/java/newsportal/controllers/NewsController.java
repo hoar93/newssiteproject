@@ -121,6 +121,4 @@ public class NewsController {
 
         return "redirect:/news/";
     }
-
-
 }

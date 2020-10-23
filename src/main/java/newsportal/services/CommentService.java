@@ -37,9 +37,18 @@ public class CommentService {
         this.newsRepository = newsRepository;
     }
 
+    public List<Comment> getFlaggedComments() {
+        return commentRepository.findAllCommentByIsFlaggedTrue();
+    }
+
     @Transactional
     public void flagComment(Long id) {
         commentRepository.flagComment(id);
+    }
+
+    @Transactional
+    public void removeFlag(Long id) {
+        commentRepository.removeFlagComment(id);
     }
 
     @Transactional

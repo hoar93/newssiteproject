@@ -1,0 +1,91 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head data-th-replace="menu :: newhead">
+</head>
+
+<body>
+<nav data-th-replace="menu :: newmenu"></nav>
+<div class="row">
+    <div class="col-md-8">
+        <div class="container">
+            <h3 class="mb-3">Jelentett kommentek:</h3>
+            <div class="row">
+                <div class="col-sm-4" data-th-each="oneComment: ${allFlaggedComment}">
+
+                    <div class="card border-warning mb-3" style="max-width: 18rem;">
+                        <div class="card-body">
+                            <p class="card-text" data-th-text="${oneComment.getMessage()}"></p>
+                        </div>
+                        <div class="card-footer">
+                            <!-- flag törlése -->
+                            <button type="submit" class="btn btn-outline-success btn-sm float-left mr-3"
+                                    data-toggle="modal"
+                                    data-target="#removeFlagCommentModal">Flag törlése
+                            </button>
+
+                            <div class="modal fade" id="removeFlagCommentModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="removeFlagModalLabel">Flag törlése</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Biztosan nincs semmi probléma a kommenttel?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-secondary"
+                                                    data-dismiss="modal">
+                                                Mégse
+                                            </button>
+                                            <form data-th-action="@{'/removeFlag/'+${oneComment.getId()}}"
+                                                  method="POST">
+                                                <button type="submit" class="btn btn btn-outline-success">Igen</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- komment törlése -->
+                            <button type="submit" class="btn btn-outline-danger btn-sm float-right mr-3"
+                                    data-toggle="modal"
+                                    data-target="#deleteCommentModal">Töröl
+                            </button>
+
+                            <div class="modal fade" id="deleteCommentModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Törlés</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Biztosan törlöd a jelentett kommentet?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-secondary"
+                                                    data-dismiss="modal">
+                                                Mégse
+                                            </button>
+                                            <form data-th-action="@{'/deleteFlaggedComment/'+${oneComment.getId()}}"
+                                                  method="POST">
+                                                <button type="submit" class="btn btn btn-outline-danger">Töröl</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>

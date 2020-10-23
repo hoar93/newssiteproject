@@ -24,7 +24,27 @@ public class CommentController {
         this.newsServices = newsServices;
     }
 
+    @PostMapping(path = "/removeFlag/{commentId}")
+    public String removeFlag(
+            @PathVariable("commentId") Long commentId) {
+        commentService.removeFlag(commentId);
+        return "redirect:/flaggedComments/";
+    }
 
+
+    @PostMapping(path = "/deleteFlaggedComment/{commentId}")
+    public String deleteFlaggedComment(
+            @PathVariable("commentId") Long commentId) {
+        commentService.deleteComment(commentId);
+        return "redirect:/flaggedComments/";
+    }
+
+    @GetMapping("/flaggedComments/")
+    public String flaggedComments(Model model) {
+        model.addAttribute("allFlaggedComment", commentService.getFlaggedComments());
+
+        return "flaggedComments";
+    }
 
     @PostMapping("/flagComment/{newsId}/{commentId}/")
     public String reportComment(

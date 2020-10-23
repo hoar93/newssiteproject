@@ -11,11 +11,16 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     List<Comment> findAllCommentByNews(News news);
+    List<Comment> findAllCommentByIsFlaggedTrue();
     void deleteCommentById(Long id);
 
     @Modifying
     @Query("update Comment c set c.isFlagged = true where c.id =:id")
     void flagComment(@Param(value = "id") long id);
+
+    @Modifying
+    @Query("update Comment c set c.isFlagged = false where c.id =:id")
+    void removeFlagComment(@Param(value = "id") long id);
 
     @Modifying
     @Query("update Comment c set c.message = :message where c.id = :id")
