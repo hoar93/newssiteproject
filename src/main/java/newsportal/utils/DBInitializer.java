@@ -51,9 +51,9 @@ public class DBInitializer {
             Authority userAuthority = em.createQuery("select a from Authority a where a.name = 'ROLE_USER'", Authority.class).getSingleResult();
             Authority adminAuthority = em.createQuery("select a from Authority a where a.name = 'ROLE_ADMIN'", Authority.class).getSingleResult();
 
-            User user = new User("user", "password", "user@gmail.com", LocalDate.of(1990, 7, 15));
+            User user = new User("user", "password", "user@gmail.com", LocalDate.of(1990, 7, 15), "én egy próba user vagyok, sok dolgom nincs egyébként");
             user.setAuthorities(Collections.singleton(userAuthority));
-            User admin = new User("admin", "password", "admin@gmail.com", LocalDate.of(1997, 6, 11));
+            User admin = new User("admin", "password", "admin@gmail.com", LocalDate.of(1997, 6, 11), "Én vagyok az admin, van jó sok admin jogom is. Amiket használok is, ha úgy van! Bizony, hiszed vagy sem.");
             admin.setAuthorities(Collections.singleton(adminAuthority));
 
             em.persist(user);

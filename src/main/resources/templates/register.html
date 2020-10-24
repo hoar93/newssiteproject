@@ -1,42 +1,51 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head data-th-replace="menu :: newhead">
-
-
 </head>
+
 <body>
-<form data-th-action="@{/register}" method="post" data-th-object="${user}">
-    <table class="table table-sm">
-        <tr>
-            <td>
+<nav data-th-replace="menu :: newmenu"></nav>
+
+
+    <div class="container">
+        <form data-th-action="@{/register}" method="post" data-th-object="${user}">
+        <div class="row">
+            <div class="form-group">
                 <label for="username">Felhasználónév:</label>
                 <input type="text" data-th-field="*{username}" id="username" class="form-control">
                 <!-- TODO bindingerror-->
-            </td>
-        </tr>
-        <tr>
-            <td>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
                 <label for="password">Jelszó:</label>
                 <input type="password" data-th-field="*{password}" id="password" class="form-control">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="email">E-mail:</label>
-                <input type="email" data-th-field="*{email}" id="email" class="form-control">
-            </td>
-        </tr>
-        <tr>
-            <td>
+            </div>
+        </div>
+            <div class="row">
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" data-th-field="*{email}" id="email" class="form-control">
+                </div>
+            </div>
+        <div class="row">
+            <div class="form-group">
+                <label for="introduction">Rövid bemutatkozó szöveg:</label>
+                <input type="text" data-th-field="*{introduction}" id="introduction" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
                 <label for="birthDate">Születési dátum:</label>
                 <input type="date" data-th-field="*{dateOfBirth}" id="birthDate" class="form-control">
-            </td>
-        </tr>
-        <tr>
-            <td>
+            </div>
+        </div>
+        <div class="row">
+            <div>
                 <button type="submit" class="btn btn-primary">Regisztrálok</button>
-            </td>
-        </tr>
-    </table>
-</form>
+            </div>
+        </div>
+        </form>
+    </div>
+
 </body>
 </html>

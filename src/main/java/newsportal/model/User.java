@@ -45,6 +45,8 @@ public class User implements UserDetails {
     @OneToMany (targetEntity = Comment.class)
     private List<Comment> comments = new ArrayList<>();
 
+    private String introduction;
+
 
     public User() {
     }
@@ -59,6 +61,22 @@ public class User implements UserDetails {
         this.password = password;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public User(String username, String password, String email, LocalDate dateOfBirth, String introduction) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
+        this.introduction = introduction;
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
     }
 
     public void addComment(Comment comment) {
