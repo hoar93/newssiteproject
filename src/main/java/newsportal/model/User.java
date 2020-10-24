@@ -47,13 +47,17 @@ public class User implements UserDetails {
 
     private String introduction;
 
+    private LocalDate dateOfRegistration;
+
 
     public User() {
+        this.dateOfRegistration = LocalDate.now();
     }
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.dateOfRegistration = LocalDate.now();
     }
 
     public User(String username, String password, String email, LocalDate dateOfBirth) {
@@ -61,6 +65,7 @@ public class User implements UserDetails {
         this.password = password;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
+        this.dateOfRegistration = LocalDate.now();
     }
 
     public User(String username, String password, String email, LocalDate dateOfBirth, String introduction) {
@@ -69,6 +74,11 @@ public class User implements UserDetails {
         this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.introduction = introduction;
+        this.dateOfRegistration = LocalDate.now();
+    }
+
+    public LocalDate getDateOfRegistration() {
+        return dateOfRegistration;
     }
 
     public String getIntroduction() {

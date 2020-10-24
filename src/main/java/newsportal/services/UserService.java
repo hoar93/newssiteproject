@@ -34,6 +34,11 @@ public class UserService implements UserDetailsService {
         this.hashtagRepository = hashtagRepository;
     }
 
+    public User findUserByUsername(String username) {
+        return userRepository.findUserByUsername(username);
+
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
