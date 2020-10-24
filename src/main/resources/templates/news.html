@@ -33,7 +33,7 @@
                                     <div class="card border-light mb-3" style="max-width: 100%;" data-th-each="oneComment: ${comments}"> <!-- 18-24rem -->
                                         <div class="card-header">
                                             <div class="float-left text-muted" data-th-text="${oneComment.getCreationTime()}"></div>
-                                            <div class="float-right text-muted" data-th-text="${oneComment.getCreator()}"></div>
+                                            <a data-th-href="@{'/user/'+${oneComment.getCreator()}}" class="float-right text-muted" data-th-text="${oneComment.getCreator()}"></a>
                                         </div>
                                         <div class="card-body">
                                             <p data-th-if="${oneComment.isAuthor()}" class="card-text" data-th-text="${oneComment.getMessage()}"></p>
