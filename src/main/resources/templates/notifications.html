@@ -1,0 +1,32 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head data-th-replace="menu :: newhead">
+</head>
+
+<body>
+<nav data-th-replace="menu :: newmenu"></nav>
+
+<div class="row">
+    <div class="col-md-8">
+
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    Értesítések
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush" data-th-each="oneNotification: ${notificationList}">
+                        <li class="list-group-item">
+                            <p class="card-text float-left" data-th-text="${oneNotification.getMessage()}"></p>
+                            <p class="card-text text-muted float-right" data-th-text="${oneNotification.getCreationTime()}"></p>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

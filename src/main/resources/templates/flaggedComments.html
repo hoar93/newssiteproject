@@ -79,7 +79,7 @@
                                                     data-dismiss="modal">
                                                 Mégse
                                             </button>
-                                            <form data-th-action="@{'/deleteFlaggedComment/'+${oneComment.getId()}}"
+                                            <form data-th-action="@{'/deleteFlaggedComment/'+${oneComment.getId()}+'/'+${oneComment.getNewsId()}}"
                                                   method="POST">
                                                 <button type="submit" class="btn btn btn-outline-danger">Töröl</button>
                                             </form>

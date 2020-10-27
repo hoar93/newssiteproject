@@ -2,6 +2,8 @@ package newsportal.services;
 
 import newsportal.dto.CommentDto;
 import newsportal.dto.CommentShowDto;
+import newsportal.dto.FlaggedCommentDto;
+import newsportal.enums.NotificationType;
 import newsportal.model.Comment;
 import newsportal.model.News;
 import newsportal.model.User;
@@ -28,17 +30,24 @@ public class CommentService {
     private CommentRepository commentRepository;
     private UserRepository userRepository;
     private NewsRepository newsRepository;
+    private NotificationService notificationService;
     // private User loggedInUser; //TODO jó ezt be autowiredezni?
 
     @Autowired
-    public CommentService(CommentRepository commentRepository, UserRepository userRepository, NewsRepository newsRepository) {
+    public CommentService(CommentRepository commentRepository, UserRepository userRepository, NewsRepository newsRepository, NotificationService notificationService) {
         this.commentRepository = commentRepository;
         this.userRepository = userRepository;
         this.newsRepository = newsRepository;
+        this.notificationService = notificationService;
     }
 
-    public List<Comment> getFlaggedComments() {
-        return commentRepository.findAllCommentByIsFlaggedTrue();
+    public List<FlaggedCommentDto> getFlaggedComments() {
+        List<Comment> commentList = commentRepository.findAllCommentByIsFlaggedTrue();
+        List<FlaggedCommentDto> flaggedCommentDtoList = new ArrayList<>();
+        for(Comment comment : commentList) {
+            flaggedCommentDtoList.add(new FlaggedCommentDto(comment.getId(), comment.getMessage(), comment.getNews().getId()));
+        }
+        return flaggedCommentDtoList;
     }
 
     @Transactional
@@ -93,7 +102,14 @@ public class CommentService {
     }
 
     @Transactional
-    public void deleteComment(Long commentId) {
+    public void deleteOwnComment(Long commentId) {
+        commentRepository.deleteCommentById(commentId);
+    }
+
+    @Transactional
+    public void deleteComment(Long commentId, int newsId) {
+        User user = commentRepository.findById(commentId).get().getCreator();
+        notificationService.createNotification(NotificationType.REMOVED_MESSAGE, String.valueOf(newsId), user);
         commentRepository.deleteCommentById(commentId);
     }
 

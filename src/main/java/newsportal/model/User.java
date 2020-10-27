@@ -45,6 +45,9 @@ public class User implements UserDetails {
     @OneToMany (targetEntity = Comment.class)
     private List<Comment> comments = new ArrayList<>();
 
+    @OneToMany
+    private List<Notification> notifications = new ArrayList<>();
+
     private String introduction;
 
     private LocalDate dateOfRegistration;
@@ -87,6 +90,17 @@ public class User implements UserDetails {
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    public void addNotification(Notification notification) {
+        notifications.add(notification);
+    }
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
     }
 
     public void addComment(Comment comment) {

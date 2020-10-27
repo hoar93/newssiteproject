@@ -2,6 +2,7 @@ package newsportal.repos;
 
 import newsportal.model.Comment;
 import newsportal.model.News;
+import newsportal.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

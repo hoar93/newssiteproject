@@ -1,8 +1,10 @@
 package newsportal.controllers;
 
 import newsportal.dto.CommentDto;
+import newsportal.enums.NotificationType;
 import newsportal.services.CommentService;
 import newsportal.services.NewsServices;
+import newsportal.services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +19,13 @@ import java.time.LocalDateTime;
 public class CommentController {
     private CommentService commentService;
     private NewsServices newsServices;
+    private NotificationService notificationService;
 
     @Autowired
-    public CommentController(CommentService commentService, NewsServices newsServices) {
+    public CommentController(CommentService commentService, NewsServices newsServices, NotificationService notificationService) {
         this.commentService = commentService;
         this.newsServices = newsServices;
+        this.notificationService = notificationService;
     }
 
     @PostMapping(path = "/removeFlag/{commentId}")
@@ -32,10 +36,11 @@ public class CommentController {
     }
 
 
-    @PostMapping(path = "/deleteFlaggedComment/{commentId}")
+    @PostMapping(path = "/deleteFlaggedComment/{commentId}/{newsId}")
     public String deleteFlaggedComment(
-            @PathVariable("commentId") Long commentId) {
-        commentService.deleteComment(commentId);
+            @PathVariable("commentId") Long commentId,
+            @PathVariable("newsId") int newsId) {
+        commentService.deleteComment(commentId, newsId);
         return "redirect:/flaggedComments/";
     }
 
@@ -82,7 +87,9 @@ public class CommentController {
             @PathVariable("newsId") int newsId,
             @PathVariable("commentId") Long commentId) {
         //int thatNews= newsId;
-        commentService.deleteComment(commentId);
+
+        commentService.deleteOwnComment(commentId);
+
         return "redirect:/news/{newsId}";
     }
 
