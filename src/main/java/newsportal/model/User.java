@@ -45,7 +45,7 @@ public class User implements UserDetails {
     @OneToMany (targetEntity = Comment.class)
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany
+    @ManyToMany
     private List<Notification> notifications = new ArrayList<>();
 
     private String introduction;

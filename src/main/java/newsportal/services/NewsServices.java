@@ -88,6 +88,14 @@ public class NewsServices {
         return all;
     }
 
+    public News findNewsById(Long id) {
+        return newsRepository.findNewsById(id);
+    }
+
+    public String findNewsTitleById(Long id) {
+        return findNewsById(id).getTitle();
+    }
+
     @Transactional
     public void updateContent(Long id, String content) {
         newsRepository.updateNewsContent(id, content);

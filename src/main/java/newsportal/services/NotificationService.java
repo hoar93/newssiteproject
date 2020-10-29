@@ -37,7 +37,7 @@ public class NotificationService {
         Notification newNotification = new Notification();
         newNotification.setType(notType);
         newNotification.setLinkMessage(stringId);
-        newNotification.setUser(user);
+        newNotification.addUser(user);
         user.addNotification(newNotification);
         em.persist(newNotification);
     }
@@ -49,6 +49,7 @@ public class NotificationService {
         for (Notification oneNotification : notifications) {
             ShowNotificationDto oneNotificationDto = new ShowNotificationDto();
             oneNotificationDto = setNotificationDtoParams(oneNotificationDto, oneNotification);
+            oneNotificationDto.setCreationTime(oneNotification.getCreationTime());
             notificationDtos.add(oneNotificationDto);
         }
         return notificationDtos;
@@ -58,6 +59,7 @@ public class NotificationService {
         switch (newNoti.getType())
         {
             case NEW_ARTICLE:
+                //cikk perzisztálása előtt létrehozni a notit, a témát
                 showNoti.setLinkPath("/news/"+Long.parseLong(newNoti.getLinkMessage()));
                 showNoti.setMessage("Új cikk az általad követett témában: ");
                 break;
@@ -67,12 +69,10 @@ public class NotificationService {
                 break;
             case REMOVED_MESSAGE:
                 showNoti.setLinkPath("/news/"+Long.parseLong(newNoti.getLinkMessage()));
+                showNoti.setLinkMessage(newsServices.findNewsTitleById(Long.parseLong(newNoti.getLinkMessage())));
                 showNoti.setMessage("Törölték a hozzászólásodat az alábbi cikknél: ");
                 break;
         }
-        showNoti.setLinkMessage(newNoti.getLinkMessage());
-
         return showNoti;
     }
-
 }

@@ -4,6 +4,7 @@ import newsportal.enums.NotificationType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Notification {
@@ -11,8 +12,8 @@ public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    private User user;
+    @ManyToMany
+    private List<User> users;
     private String linkMessage;
     private NotificationType type;
     private boolean isSeen;
@@ -23,16 +24,19 @@ public class Notification {
         this.creationTime = LocalDateTime.now();
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void addUser(User user){
+        users.add(user);
+    }
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
     public NotificationType getType() {
         return type;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public void setType(NotificationType type) {

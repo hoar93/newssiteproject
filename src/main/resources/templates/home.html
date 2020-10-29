@@ -5,42 +5,44 @@
 </head>
 <body>
 <nav data-th-replace="menu :: newmenu"></nav>
-<div class="row">
-    <div class="col-md-8">
-        <!-- hírek blokk -->
-        <div class="container">
-            <!-- top hashtagek -->
-            <div class="mb-3">
-                <h3>Legfelkapottabb <em>#hashtagek</em></h3>
-                <div class="d-flex justify-content-start">
-                    <div data-th-each="oneHash: ${topHashes}">
-                        <a data-th-href="@{'/hashtag/' + ${oneHash.getName()}}" class="badge badge-pill badge-info mr-3" data-th-text="'#' + ${oneHash.getName()}"></a>
+<div class="container" >
+    <div class="row">
+        <div class="col-md-8">
+            <!-- hírek blokk -->
+            <div class="container">
+                <!-- top hashtagek -->
+                <div class="mb-3">
+                    <h3>Legfelkapottabb <em>#hashtagek</em></h3>
+                    <div class="d-flex justify-content-start">
+                        <div data-th-each="oneHash: ${topHashes}">
+                            <a data-th-href="@{'/hashtag/' + ${oneHash.getName()}}" class="badge badge-pill badge-info mr-3" data-th-text="'#' + ${oneHash.getName()}"></a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- hírek -->
-            <div class="container">
-                <h3 class="mb-3">Hírek:</h3>
-                <div class="row">
-                    <div class="col-sm-6" data-th-each="oneNews: ${allNews}">
-                        <div class="card mb-3">
-                            <div class="card-header">
-                                <div class="float-left" data-th-text="${oneNews.getCreationTime()}"></div>
-                                <div class="float-right" data-th-text="${oneNews.getAuthor()}"></div>
-                            </div>
-                            <div class="card-body">
-                                <div class="mb-2">
-                                    <a class="h5 card-title text-secondary" data-th-href="@{'/news/'+${oneNews.getId()}}" data-th-text="${oneNews.getTitle()}"></a>
+                <!-- hírek -->
+                <div class="container">
+                    <h3 class="mb-3">Hírek:</h3>
+                    <div class="row">
+                        <div class="col-sm-12" data-th-each="oneNews: ${allNews}">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <div class="float-left" data-th-text="${oneNews.getCreationTime()}"></div>
+                                    <div class="float-right" data-th-text="${oneNews.getAuthor()}"></div>
                                 </div>
-                                <div>
-                                    <a class="card-text text-dark" data-th-href="@{'/news/'+${oneNews.getId()}}" data-th-text="${oneNews.getContent()}"></a>
-                                </div>
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <a class="h5 card-title text-secondary" data-th-href="@{'/news/'+${oneNews.getId()}}" data-th-text="${oneNews.getTitle()}"></a>
+                                    </div>
+                                    <div>
+                                        <a class="card-text text-dark" data-th-href="@{'/news/'+${oneNews.getId()}}" data-th-text="${oneNews.getContent()}"></a>
+                                    </div>
 
-                            </div>
-                            <div class="card-footer d-flex justify-content-start">
-                                <div data-th-each="oneHashtag: ${oneNews.getHashtagList()}">
-                                    <a href="#" class="badge badge-pill badge-info mr-1" data-th-text="'#' + ${oneHashtag.getName()}"></a>
+                                </div>
+                                <div class="card-footer d-flex justify-content-start">
+                                    <div data-th-each="oneHashtag: ${oneNews.getHashtagList()}">
+                                        <a href="#" class="badge badge-pill badge-info mr-1" data-th-text="'#' + ${oneHashtag.getName()}"></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -48,13 +50,14 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-4">
-        <!-- oldalsáv -->
-        <!--
-        <div data-th-include="hashtagTests :: favorithashtags"></div>
-        -->
+        <div class="col-md-4">
+            <!-- oldalsáv -->
+            <!--
+            <div data-th-include="hashtagTests :: favorithashtags"></div>
+            -->
+        </div>
     </div>
 </div>
+
 </body>
 </html>

@@ -16,7 +16,8 @@
                 <div class="card-body">
                     <ul class="list-group list-group-flush" data-th-each="oneNotification: ${notificationList}">
                         <li class="list-group-item">
-                            <p class="card-text float-left" data-th-text="${oneNotification.getMessage()}"></p>
+                            <p class="card-text float-left pr-1" data-th-text="${oneNotification.getMessage()}"></p>
+                            <a class="card-text float-left" data-th-text="${oneNotification.getLinkMessage()}" data-th-href="${oneNotification.getLinkPath()}"></a>
                             <p class="card-text text-muted float-right" data-th-text="${oneNotification.getCreationTime()}"></p>
                         </li>
 
