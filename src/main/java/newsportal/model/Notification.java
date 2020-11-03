@@ -14,7 +14,7 @@ public class Notification {
     private Long id;
     @ManyToMany
     private List<User> users;
-    private String linkMessage;
+    private Long linkMessage;
     private NotificationType type;
     private boolean isSeen;
     private LocalDateTime creationTime;
@@ -47,11 +47,11 @@ public class Notification {
         return id;
     }
 
-    public String getLinkMessage() {
+    public Long getLinkMessage() {
         return linkMessage;
     }
 
-    public void setLinkMessage(String linkMessage) {
+    public void setLinkMessage(Long linkMessage) {
         this.linkMessage = linkMessage;
     }
 

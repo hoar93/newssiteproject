@@ -34,6 +34,10 @@ public class UserService implements UserDetailsService {
         this.hashtagRepository = hashtagRepository;
     }
 
+    public User findUserById(Long id) {
+        return userRepository.findUserById(id);
+    }
+
     public User findUserByUsername(String username) {
         return userRepository.findUserByUsername(username);
 

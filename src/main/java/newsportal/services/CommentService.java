@@ -107,9 +107,10 @@ public class CommentService {
     }
 
     @Transactional
-    public void deleteComment(Long commentId, int newsId) {
-        User user = commentRepository.findById(commentId).get().getCreator();
-        notificationService.createNotification(NotificationType.REMOVED_MESSAGE, String.valueOf(newsId), user);
+    public void deleteComment(Long commentId, Long newsId) {
+        Long userId = commentRepository.findById(commentId).get().getCreator().getId();
+        //TODO a noti service-nek a create DELETED_COMMENT metódus hívódjun meg, ne az általános
+        // notificationService.createNotification(NotificationType.REMOVED_MESSAGE, newsId, userId);
         commentRepository.deleteCommentById(commentId);
     }
 

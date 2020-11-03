@@ -30,17 +30,20 @@ public class NewsServices {
     @PersistenceContext
     private EntityManager em;
 
+
     private NewsRepository newsRepository;
     private HashtagRepository hashtagRepository;
     private UserRepository userRepository;
     private UserService userService;
+    private NotificationService notificationService;
 
     @Autowired
-    public NewsServices(NewsRepository newsRepository, HashtagRepository hashtagRepository, UserRepository userRepository, UserService userService) {
+    public NewsServices(NewsRepository newsRepository, HashtagRepository hashtagRepository, UserRepository userRepository, UserService userService, NotificationService notificationService) {
         this.newsRepository = newsRepository;
         this.hashtagRepository = hashtagRepository;
         this.userRepository = userRepository;
         this.userService = userService;
+        this.notificationService = notificationService;
     }
 
     public News oneNews(long id) {
@@ -119,8 +122,12 @@ public class NewsServices {
         //      news-hoz hashtaglistet settel - pipa
 
         List<Hashtag> hashtags = setNewsToDublicate(hashtagNames, news);
+        //notificationService.
+
         news.setHashtagList(hashtags);
         em.persist(news);
+
+        notificationService.createNewArticleNotifications(hashtags, news.getId());
     }
 
     //TODO ha null, üres lesz

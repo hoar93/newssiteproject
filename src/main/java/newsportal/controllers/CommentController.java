@@ -39,7 +39,7 @@ public class CommentController {
     @PostMapping(path = "/deleteFlaggedComment/{commentId}/{newsId}")
     public String deleteFlaggedComment(
             @PathVariable("commentId") Long commentId,
-            @PathVariable("newsId") int newsId) {
+            @PathVariable("newsId") Long newsId) {
         commentService.deleteComment(commentId, newsId);
         return "redirect:/flaggedComments/";
     }
