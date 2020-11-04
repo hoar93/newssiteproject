@@ -61,7 +61,11 @@ public class NotificationService {
          */
     }
     //TODO innen induljon a törölt komment értesítés, ezt hívja meg a comment service
-    // public void createDeleteCommentNotification
+    public void createDeleteCommentNotification(Long newsId, Long userId) {
+        List<Long> user = new ArrayList<>();
+        user.add(userId);
+        createNotification(NotificationType.REMOVED_MESSAGE, newsId, user);
+    }
 
 
     @Transactional

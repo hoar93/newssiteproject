@@ -110,6 +110,7 @@ public class CommentService {
     public void deleteComment(Long commentId, Long newsId) {
         Long userId = commentRepository.findById(commentId).get().getCreator().getId();
         //TODO a noti service-nek a create DELETED_COMMENT metódus hívódjun meg, ne az általános
+        notificationService.createDeleteCommentNotification(newsId, userId);
         // notificationService.createNotification(NotificationType.REMOVED_MESSAGE, newsId, userId);
         commentRepository.deleteCommentById(commentId);
     }
