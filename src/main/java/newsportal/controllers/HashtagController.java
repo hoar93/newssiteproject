@@ -57,25 +57,29 @@ public class HashtagController {
     @PostMapping("/addHashtag")
     public String addHashtag(@ModelAttribute ("hashtag") HashtagDto hashtag) {
         userService.setFollowedHashtag(hashtag.getName());
-        return "redirect:/followedHashtags/";
+        //return "redirect:/followedHashtags/";
+        return "redirect:/home/";
     }
 
     @GetMapping(path = "/addNewHashtag/{hashtagId}")
     public String addHashtagById(@PathVariable("hashtagId") Long hashtagId) {
         userService.setFollowedById(hashtagId);
-        return "redirect:/followedHashtags/";
+        //return "redirect:/followedHashtags/";
+        return "redirect:/home/";
     }
 
     @GetMapping(path = "/removeHashtagById/{hashtagId}")
     public String removeHashtagById(@PathVariable("hashtagId") Long hashtagId) {
         userService.removeFollowedHashtagById(hashtagId);
-        return "redirect:/followedHashtags/";
+        //return "redirect:/followedHashtags/";
+        return "redirect:/home/";
     }
 
 
     @PostMapping(path = "/removeHashtag")
     public String removeHashtag(@ModelAttribute ("removeTag") HashtagDto hashtag) {
         userService.removeFollowedHashtag(hashtag.getName());
-        return "redirect:/followedHashtags/";
+        //return "redirect:/followedHashtags/";
+        return "redirect:/home/";
     }
 }

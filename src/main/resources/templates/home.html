@@ -10,15 +10,8 @@
         <div class="col-md-8">
             <!-- hírek blokk -->
             <div class="container">
-                <!-- top hashtagek -->
-                <div class="mb-3">
-                    <h3>Legfelkapottabb <em>#hashtagek</em></h3>
-                    <div class="d-flex justify-content-start">
-                        <div data-th-each="oneHash: ${topHashes}">
-                            <a data-th-href="@{'/hashtag/' + ${oneHash.getName()}}" class="badge badge-pill badge-info mr-3" data-th-text="'#' + ${oneHash.getName()}"></a>
-                        </div>
-                    </div>
-                </div>
+                <!-- top hashtagek itt voltak-->
+
 
                 <!-- hírek -->
                 <div class="container">
@@ -52,9 +45,28 @@
         </div>
         <div class="col-md-4">
             <!-- oldalsáv -->
-            <!--
-            <div data-th-include="hashtagTests :: favorithashtags"></div>
-            -->
+
+            <!-- leg felkapotabb hashtagek-->
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h3>Legfelkapottabb <em>#hashtagek</em></h3>
+                        <div class="d-flex justify-content-start flex-wrap">
+                            <div data-th-each="oneHash: ${topHashes}">
+                                <a data-th-href="@{'/hashtag/' + ${oneHash.getName()}}" class="badge badge-pill badge-info mr-1 mb-1" data-th-text="'#' + ${oneHash.getName()}"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- followold hashgateg szekció -->
+            <div class="card">
+                <div class="card-body">
+                    <div data-th-include="hashtagTests :: favorithashtags"></div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

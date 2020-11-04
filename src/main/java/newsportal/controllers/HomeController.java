@@ -1,9 +1,11 @@
 package newsportal.controllers;
 
+import newsportal.dto.HashtagDto;
 import newsportal.model.Hashtag;
 import newsportal.model.News;
 import newsportal.services.HashtagService;
 import newsportal.services.NewsServices;
+import newsportal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -23,11 +25,13 @@ public class HomeController {
 
     private NewsServices newsServices;
     private HashtagService hashtagService;
+    private UserService userService;
 
     @Autowired
-    public HomeController(NewsServices newsServices, HashtagService hashtagService) {
+    public HomeController(NewsServices newsServices, HashtagService hashtagService, UserService userService) {
         this.newsServices = newsServices;
         this.hashtagService = hashtagService;
+        this.userService = userService;
     }
 
     /*
@@ -48,14 +52,37 @@ public class HomeController {
     */
 
 
-    @RequestMapping(value = {"/", "/home", "/news"}, method = GET)
+    @RequestMapping(value = {"/", "/home", "/news", "home/"}, method = GET)
     public String messengerHome(Model model) {
         List<News> allNews = newsServices.allNews();
         List<Hashtag> topHashes = hashtagService.topHashtags();
+        List<HashtagDto> hashtagList = hashtagService.allHashtagsName();
+
+        HashtagDto newDto = new HashtagDto();
+        List<HashtagDto> allFollowed = userService.followedHashtags();
+
+        List<HashtagDto> clearList = removeFollowed(hashtagList, allFollowed);
+
+
+        model.addAttribute("allHashtags",clearList);
+        model.addAttribute("allFollowed", allFollowed);
+        model.addAttribute("hashtagdto", newDto);
 
         model.addAttribute("allNews", allNews);
         model.addAttribute("topHashes", topHashes);
         return "home";
 
+    }
+    private List<HashtagDto> removeFollowed(List<HashtagDto> allHashtags, List<HashtagDto> followedHashtags) {
+        List <HashtagDto> clearList = allHashtags;
+        for(int i = 0; i < followedHashtags.size(); i++) {
+            //String actualFollowedHashtag = followedHashtags.get(i).getName();
+            for(int j = 0; j < allHashtags.size(); j++) {
+                if (followedHashtags.get(i).getName().equals(allHashtags.get(j).getName())) {
+                    clearList.remove(allHashtags.get(j));
+                }
+            }
+        }
+        return clearList;
     }
 }

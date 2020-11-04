@@ -3,7 +3,7 @@
 <body>
 <!-- <nav data-th-replace="menu :: newmenu"></nav> -->
 <div class="container" data-th-fragment="favorithashtags">
-    <h2>Hashtagek</h2>
+    <h2>Kedvenc hashtagek</h2>
 
     <!-- Followolható Hashtagek LISTÁJA -->
     <label for="hashtaglist"><strong>Followolható</strong> hashtagek:</label>
@@ -12,8 +12,8 @@
     </div>
     <table data-th-if="${!allHashtags.empty}" class="table" id="hashtaglist">
         <div class="row">
-            <div class="d-flex justify-content-start" data-th-each="oneHashtag: ${allHashtags}">
-                <a data-th-href="@{'/addNewHashtag/'+${oneHashtag.id}}" class="badge badge-pill badge-info mr-1" data-th-text="'#' + ${oneHashtag.getName()}"> </a>
+            <div class="d-flex justify-content-start ml-2" data-th-each="oneHashtag: ${allHashtags}">
+                <a data-th-href="@{'/addNewHashtag/'+${oneHashtag.id}}" class="badge badge-pill badge-info mr-1 mb-1" data-th-text="'#' + ${oneHashtag.getName()}"> </a>
             </div>
         </div>
     </table>
@@ -25,8 +25,8 @@
     </div>
     <table data-th-if="${!allFollowed.empty}" class="table" id="followedHashtags">
         <div class="row">
-            <div class="d-flex justify-content-start" data-th-each="oneFollowed: ${allFollowed}">
-                <a data-th-href="@{'/removeHashtagById/'+${oneFollowed.id}}" class="badge badge-pill badge-info mr-1" data-th-text="'#' + ${oneFollowed.getName()}"> </a>
+            <div class="d-flex justify-content-start ml-2" data-th-each="oneFollowed: ${allFollowed}">
+                <a data-th-href="@{'/removeHashtagById/'+${oneFollowed.id}}" class="badge badge-pill badge-info mr-1 mb-1" data-th-text="'#' + ${oneFollowed.getName()}"> </a>
             </div>
         </div>
         <div>
