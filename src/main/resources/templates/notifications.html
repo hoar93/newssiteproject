@@ -10,19 +10,28 @@
 
         <div class="container">
             <div class="card">
-                <div class="card-header">
-                    Értesítések
+                <div class="card-header font-weight-bold">
+                    Értesítéseid:
                 </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush" data-th-each="oneNotification: ${notificationList}">
-                        <li class="list-group-item">
-                            <p class="card-text float-left pr-1" data-th-text="${oneNotification.getMessage()}"></p>
-                            <a class="card-text float-left" data-th-text="${oneNotification.getLinkMessage()}" data-th-href="${oneNotification.getLinkPath()}"></a>
-                            <p class="card-text text-muted float-right" data-th-text="${oneNotification.getCreationTime()}"></p>
-                        </li>
+                <table data-th-if="${!notificationList.empty}" class="table">
+                    <div class="row">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush" data-th-each="oneNotification: ${notificationList}">
+                                <li class="list-group-item">
+                                    <p class="card-text float-left pr-1" data-th-text="${oneNotification.getMessage()}"></p>
+                                    <a class="card-text float-left" data-th-text="${oneNotification.getLinkMessage()}" data-th-href="${oneNotification.getLinkPath()}"></a>
+                                    <p class="card-text text-muted float-right" data-th-text="${oneNotification.getCreationTime()}"></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </table>
+                <table data-th-if="${notificationList.empty}" class="table" >
+                      <div class="ml-2 mt-2">
+                          Nincsenek értesítéseid.
+                      </div>
+                </table>
 
-                    </ul>
-                </div>
             </div>
         </div>
 
