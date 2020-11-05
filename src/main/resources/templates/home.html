@@ -48,9 +48,9 @@
             <!-- leg felkapotabb hashtagek-->
             <div class="card mt-3">
                 <div class="card-body">
-                    <div class="mb-3">
-                        <h3>Legfelkapottabb <em>#hashtagek</em></h3>
-                        <div class="d-flex justify-content-start flex-wrap">
+                    <div class="pb-1">
+                        <h4>Legnépszerűbb <em>#témák</em></h4>
+                        <div class="d-flex justify-content-start flex-wrap pt-2">
                             <div data-th-each="oneHash: ${topHashes}">
                                 <a data-th-href="@{'/hashtag/' + ${oneHash.getName()}}" class="badge badge-pill badge-info mr-1 mb-1" data-th-text="'#' + ${oneHash.getName()}"></a>
                             </div>

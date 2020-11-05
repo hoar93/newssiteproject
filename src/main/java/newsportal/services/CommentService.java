@@ -31,14 +31,15 @@ public class CommentService {
     private UserRepository userRepository;
     private NewsRepository newsRepository;
     private NotificationService notificationService;
-    // private User loggedInUser; //TODO jó ezt be autowiredezni?
+    private UserService userService;
 
     @Autowired
-    public CommentService(CommentRepository commentRepository, UserRepository userRepository, NewsRepository newsRepository, NotificationService notificationService) {
+    public CommentService(CommentRepository commentRepository, UserRepository userRepository, NewsRepository newsRepository, NotificationService notificationService, UserService userService) {
         this.commentRepository = commentRepository;
         this.userRepository = userRepository;
         this.newsRepository = newsRepository;
         this.notificationService = notificationService;
+        this.userService = userService;
     }
 
     public List<FlaggedCommentDto> getFlaggedComments() {
@@ -86,7 +87,7 @@ public class CommentService {
                 oneComment.setMessage(comment.getMessage());
                 oneComment.setFlagged(comment.isFlagged());
                 oneComment.setChecked(comment.isChecked());
-                if (loggedInUser.equals(null)) { //vannak bajok
+                if (!userService.isAnyoneLoggedIn()) { //vannak bajok
                     oneComment.setAuthor(false);
                 } else {
                     if(loggedInUser.equals(comment.getCreator())) {

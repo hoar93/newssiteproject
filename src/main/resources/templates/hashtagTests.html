@@ -3,7 +3,7 @@
 <body>
 <!-- <nav data-th-replace="menu :: newmenu"></nav> -->
 <div class="container" data-th-fragment="favorithashtags">
-    <h2>Kedvenc hashtagek</h2>
+    <h4>Kedvenc hashtagek</h4>
 
     <!-- Followolható Hashtagek LISTÁJA -->
     <label for="hashtaglist"><strong>Followolható</strong> hashtagek:</label>
@@ -11,8 +11,8 @@
         Összes followolva van a bejelentkezett felhasználó által.
     </div>
     <table data-th-if="${!allHashtags.empty}" class="table" id="hashtaglist">
-        <div class="row">
-            <div class="d-flex justify-content-start ml-2" data-th-each="oneHashtag: ${allHashtags}">
+        <div class="row pl-3">
+            <div class="d-flex justify-content-start ml-1" data-th-each="oneHashtag: ${allHashtags}">
                 <a data-th-href="@{'/addNewHashtag/'+${oneHashtag.id}}" class="badge badge-pill badge-info mr-1 mb-1" data-th-text="'#' + ${oneHashtag.getName()}"> </a>
             </div>
         </div>
@@ -24,8 +24,8 @@
         Nincsen followed hashtag!
     </div>
     <table data-th-if="${!allFollowed.empty}" class="table" id="followedHashtags">
-        <div class="row">
-            <div class="d-flex justify-content-start ml-2" data-th-each="oneFollowed: ${allFollowed}">
+        <div class="row pl-2">
+            <div class="d-flex justify-content-start ml-1" data-th-each="oneFollowed: ${allFollowed}">
                 <a data-th-href="@{'/removeHashtagById/'+${oneFollowed.id}}" class="badge badge-pill badge-info mr-1 mb-1" data-th-text="'#' + ${oneFollowed.getName()}"> </a>
             </div>
         </div>
