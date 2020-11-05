@@ -71,6 +71,10 @@ public class UserService implements UserDetailsService {
         loggedInUser.addHashtag(hashtagRepository.findHashtagById(hashtagId));
     }
 
+    public Long findLoggedInUserId() {
+        return userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getId();
+    }
+
     @Transactional
     public List<HashtagDto> followedHashtags() {
         User loggedInUser = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());

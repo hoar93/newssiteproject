@@ -67,6 +67,15 @@ public class NotificationService {
         createNotification(NotificationType.REMOVED_MESSAGE, newsId, user);
     }
 
+    @Transactional
+    public void seenNotifications() {
+        User user = userService.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        for (Notification n : user.getNotifications()) {
+            if (!n.isSeen()) {
+                n.setSeen(true);
+            }
+        }
+    }
 
     @Transactional
     public void createNotification(NotificationType notType, Long stringId, List<Long> userId) {

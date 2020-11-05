@@ -25,6 +25,7 @@ public class NotificationController {
 
     @GetMapping("/notifications")
     public String showNotifications(Model model) {
+        notificationService.seenNotifications();
         List<ShowNotificationDto> notificationList = notificationService.NotificationDtoList();
         model.addAttribute("notificationList", notificationList);
 
