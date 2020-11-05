@@ -7,6 +7,8 @@ import newsportal.model.User;
 import newsportal.repos.HashtagRepository;
 import newsportal.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -75,15 +77,29 @@ public class UserService implements UserDetailsService {
         return userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getId();
     }
 
+    public boolean isAnyoneLoggedIn() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication instanceof AnonymousAuthenticationToken) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     @Transactional
     public List<HashtagDto> followedHashtags() {
         User loggedInUser = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         List<HashtagDto> followedHashtags = new ArrayList<>();
-        for (int i = 0; i < loggedInUser.getHashtags().size(); i++) {
-            HashtagDto hashtagDto = new HashtagDto();
-            hashtagDto.setName(loggedInUser.getHashtags().get(i).getName());
-            hashtagDto.setId(loggedInUser.getHashtags().get(i).getId());
-            followedHashtags.add(hashtagDto);
+
+        if (isAnyoneLoggedIn()) {
+            for (int i = 0; i < loggedInUser.getHashtags().size(); i++) {
+                HashtagDto hashtagDto = new HashtagDto();
+                hashtagDto.setName(loggedInUser.getHashtags().get(i).getName());
+                hashtagDto.setId(loggedInUser.getHashtags().get(i).getId());
+                followedHashtags.add(hashtagDto);
+            }
         }
         return followedHashtags;
     }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -59,13 +60,17 @@ public class HomeController {
         List<HashtagDto> hashtagList = hashtagService.allHashtagsName();
 
         HashtagDto newDto = new HashtagDto();
-        List<HashtagDto> allFollowed = userService.followedHashtags();
+        if (userService.isAnyoneLoggedIn()) {
+            List<HashtagDto> allFollowed = new ArrayList<>();
+            allFollowed = userService.followedHashtags();
+            List<HashtagDto> clearList = removeFollowed(hashtagList, allFollowed);
+            model.addAttribute("allHashtags",clearList);
+            model.addAttribute("allFollowed", allFollowed);
 
-        List<HashtagDto> clearList = removeFollowed(hashtagList, allFollowed);
+        }
 
 
-        model.addAttribute("allHashtags",clearList);
-        model.addAttribute("allFollowed", allFollowed);
+
         model.addAttribute("hashtagdto", newDto);
 
         model.addAttribute("allNews", allNews);

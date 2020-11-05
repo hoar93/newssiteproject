@@ -1,4 +1,4 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head data-th-replace="menu :: newhead">
     <meta charset="UTF-8">
     <!--<link rel="stylesheet" type="text/css" href="css/styles.css">-->
@@ -11,7 +11,6 @@
             <!-- hírek blokk -->
             <div class="container">
                 <!-- top hashtagek itt voltak-->
-
 
                 <!-- hírek -->
                 <div class="container">
@@ -47,7 +46,7 @@
             <!-- oldalsáv -->
 
             <!-- leg felkapotabb hashtagek-->
-            <div class="card">
+            <div class="card mt-3">
                 <div class="card-body">
                     <div class="mb-3">
                         <h3>Legfelkapottabb <em>#hashtagek</em></h3>
@@ -61,11 +60,14 @@
             </div>
 
             <!-- followold hashgateg szekció -->
-            <div class="card">
-                <div class="card-body">
-                    <div data-th-include="hashtagTests :: favorithashtags"></div>
+            <div sec:authorize="isAuthenticated()">
+                <div class="card">
+                    <div class="card-body">
+                        <div data-th-include="hashtagTests :: favorithashtags"></div>
+                    </div>
                 </div>
             </div>
+
 
         </div>
     </div>

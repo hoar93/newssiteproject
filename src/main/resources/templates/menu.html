@@ -37,16 +37,22 @@
     <div class="ml-auto">
         <!-- TODO értesítésnél teli pötty -->
                 <a href="/notifications" data-sec-authorize="isAuthenticated()" class="text-light">
-                    <button type="button" class="btn btn-light btn-sm mr-3" data-sec-authentication="name">
+                    <button type="button" class="btn btn-light btn-sm mr-2" data-sec-authentication="name">
 
                     </button>
                 </a>
 
         <!-- TODO menüpont lesz profil alatt -->
-        <button data-sec-authorize="isAuthenticated()"  type="button" class="btn btn-secondary btn-sm mr-2"href="/logout">Kijelentkezés</button>
-        <!-- TODO button lesz -->
-        <a data-sec-authorize="! isAuthenticated()" class="" href="/login">Bejelentkezés</a>
-        <a data-sec-authorize="! isAuthenticated()" class="" href="/register">Regisztráció</a>
+        <a data-sec-authorize="isAuthenticated()" type="button" class="btn btn-secondary btn-sm mr-2" href="/logout">
+            Kijelentkezés
+        </a>
+
+        <a type="button" data-sec-authorize="! isAuthenticated()" class="btn btn-light btn-sm mr-2" href="/login">
+            Bejelentkezés
+        </a>
+        <a type="button" data-sec-authorize="! isAuthenticated()" class="btn btn-secondary btn-sm mr-2" href="/register">
+            Regisztráció
+        </a>
     </div>
 </nav>
 
