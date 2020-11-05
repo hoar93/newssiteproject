@@ -17,7 +17,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-3" data-th-fragment="newmenu">
-    <span class="navbar-brand">News Site Project</span>
+    <a href="/home" class="navbar-brand">News Site Project</a>
     <ul class="navbar-nav">
         <!--
         <li class="nav-item">
@@ -35,11 +35,16 @@
         </li>
     </ul>
     <div class="ml-auto">
-                <span data-sec-authorize="isAuthenticated()" class="text-light">
-                    <span>Üdv </span><span data-sec-authentication="name"></span><span>!</span>
-                </span>
+        <!-- TODO értesítésnél teli pötty -->
+                <a href="/notifications" data-sec-authorize="isAuthenticated()" class="text-light">
+                    <button type="button" class="btn btn-light btn-sm mr-3" data-sec-authentication="name">
 
-        <a data-sec-authorize="isAuthenticated()" class="" href="/logout">Kijelentkezés</a>
+                    </button>
+                </a>
+
+        <!-- TODO menüpont lesz profil alatt -->
+        <button data-sec-authorize="isAuthenticated()"  type="button" class="btn btn-secondary btn-sm mr-2"href="/logout">Kijelentkezés</button>
+        <!-- TODO button lesz -->
         <a data-sec-authorize="! isAuthenticated()" class="" href="/login">Bejelentkezés</a>
         <a data-sec-authorize="! isAuthenticated()" class="" href="/register">Regisztráció</a>
     </div>
